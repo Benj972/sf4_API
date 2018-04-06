@@ -22,7 +22,7 @@ class Manufacturer
     private $name;
 
      /**
-    * @ORM\OneToMany(targetEntity="Entity\Product", mappedBy="manufacturer")
+    * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="manufacturer")
     */
     private $products;
 

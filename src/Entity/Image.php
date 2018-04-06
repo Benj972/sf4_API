@@ -27,7 +27,7 @@ class Image
     private $alt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Entity\Product", inversedBy="images", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="images", cascade={"persist"})
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      */
     private $product;

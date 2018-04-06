@@ -42,17 +42,17 @@ class Product
     private $color;
 
     /**
-     * @ORM\OneToMany(targetEntity="Entity\Image", mappedBy="product",  cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="product",  cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $images;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Entity\Manufacturer", inversedBy="product", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Manufacturer", inversedBy="product", cascade={"persist"})
      */
     private $manufacturer;
 
     /**
-     * @ORM\OneToOne(targetEntity="Entity\Feature", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Feature", cascade={"persist"})
      */
     private $feature;
 
