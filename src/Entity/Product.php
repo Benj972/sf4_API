@@ -36,6 +36,32 @@ class Product
      */
     private $size;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $color;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Entity\Image", mappedBy="product",  cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    private $images;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Entity\Manufacturer", inversedBy="product", cascade={"persist"})
+     */
+    private $manufacturer;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Entity\Feature", cascade={"persist"})
+     */
+    private $feature;
+
+    public function __construct()
+    {
+        $this->images = new ArrayCollection();
+        $this->dateCreate = new \Datetime();    
+    }
+
     public function getId()
     {
         return $this->id;
@@ -85,6 +111,61 @@ class Product
     public function setSize(string $size): self
     {
         $this->size = $size;
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(string $color): self
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    public function addImage(Image $image)
+    {
+        if($image->getFile() !== null) {
+            $this->images[] = $image;
+            // We link the image to the product
+            $image->setProduct($this);
+        }
+    }
+
+    public function removeImage(Image $image)
+    {
+        $this->images->removeElement($image);
+    }
+    
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    public function getManufacturer()
+    {
+        return $this->manufacturer;
+    }
+
+    public function setManufacturer(Manufacturer $manufacturer)
+    {
+        $this->manufacturer = $manufacturer;
+
+        return $this;
+    }
+
+    public function getFeature()
+    {
+        return $this->feature;
+    }
+
+    public function setFeature(Feature $feature)
+    {
+        $this->feature = $feature;
 
         return $this;
     }

@@ -21,6 +21,16 @@ class Manufacturer
      */
     private $name;
 
+     /**
+    * @ORM\OneToMany(targetEntity="Entity\Product", mappedBy="manufacturer")
+    */
+    private $products;
+
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+    }
+
     public function getId()
     {
         return $this->id;
@@ -36,5 +46,22 @@ class Manufacturer
         $this->name = $name;
 
         return $this;
+    }
+
+    public function addProduct(Product $product)
+    {
+        $this->products[] = $product;
+        // We link the product to the manufacturer
+        $product->setManufacturer($this);
+    }
+
+    public function removeProduct(Product $product)
+    {
+        $this->products->removeElement($product);
+    }
+    
+    public function getProducts()
+    {
+        return $this->products;
     }
 }

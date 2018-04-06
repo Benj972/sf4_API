@@ -26,6 +26,12 @@ class Image
      */
     private $alt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Entity\Product", inversedBy="images", cascade={"persist"})
+     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     */
+    private $product;
+
     public function getId()
     {
         return $this->id;
@@ -51,6 +57,18 @@ class Image
     public function setAlt(string $alt): self
     {
         $this->alt = $alt;
+
+        return $this;
+    }
+
+    public function getProduct()
+    {
+        return $this->product;
+    }
+
+    public function setProduct(Product $product)
+    {
+        $this->product = $product;
 
         return $this;
     }
