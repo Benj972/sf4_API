@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
@@ -37,9 +38,29 @@ class Product
     private $size;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $color;
+    private $multimedia;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $networks;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $screen;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $autonomy;
+
+    /**
+     * @ORM\Column(type="decimal", precision=6, scale=2)
+     */
+    private $price;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="product",  cascade={"persist", "remove"}, orphanRemoval=true)
@@ -52,13 +73,20 @@ class Product
     private $manufacturer;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Feature", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Configuration", cascade={"persist"})
      */
-    private $feature;
+    private $configurations;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="products", cascade={"persist"})
+     * @ORM\JoinColumn(name="client_id", referencedColumnName="id")
+     */
+    private $client;
 
     public function __construct()
     {
         $this->images = new ArrayCollection();
+        $this->configurations = new ArrayCollection();
         $this->dateCreate = new \Datetime();    
     }
 
@@ -115,30 +143,77 @@ class Product
         return $this;
     }
 
-    public function getColor(): ?string
+    public function getMultimedia(): ?string
     {
-        return $this->color;
+        return $this->multimedia;
     }
 
-    public function setColor(string $color): self
+    public function setMultimedia(?string $multimedia): self
     {
-        $this->color = $color;
+        $this->multimedia = $multimedia;
+
+        return $this;
+    }
+
+    public function getNetworks(): ?string
+    {
+        return $this->networks;
+    }
+
+    public function setNetworks(?string $networks): self
+    {
+        $this->networks = $networks;
+
+        return $this;
+    }
+
+    public function getScreen(): ?string
+    {
+        return $this->screen;
+    }
+
+    public function setScreen(?string $screen): self
+    {
+        $this->screen = $screen;
+
+        return $this;
+    }
+
+    public function getAutonomy(): ?string
+    {
+        return $this->autonomy;
+    }
+
+    public function setAutonomy(?string $autonomy): self
+    {
+        $this->autonomy = $autonomy;
+
+        return $this;
+    }
+
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    public function setPrice(decimal $price)
+    {
+        $this->price = $price;
 
         return $this;
     }
 
     public function addImage(Image $image)
     {
-        if($image->getFile() !== null) {
-            $this->images[] = $image;
-            // We link the image to the product
-            $image->setProduct($this);
-        }
+        $this->images[] = $image;
+        // We link the image to the product
+        $image->setProduct($this);
     }
 
     public function removeImage(Image $image)
     {
         $this->images->removeElement($image);
+        $image->setProduct(null);
     }
     
     public function getImages()
@@ -158,14 +233,31 @@ class Product
         return $this;
     }
 
-    public function getFeature()
+    public function addConfiguration(Configuration $configuration)
     {
-        return $this->feature;
+        $configuration->addproduct($this); // synchronously updating inverse side
+        $this->configurations[] = $configuration;
     }
 
-    public function setFeature(Feature $feature)
+    public function removeConfiguration(Configuration $configuraton)
     {
-        $this->feature = $feature;
+        // Ici on utilise une méthode de l'ArrayCollection, pour supprimer la configuration en argument
+        $this->configurations->removeElement($configuration);
+    }
+
+    public function getConfigurations()
+    {
+        return $this->configurations;
+    }
+   
+    public function getClient()
+    {
+        return $this->client;
+    }
+
+    public function setClient(Client $client)
+    {
+        $this->client = $client;
 
         return $this;
     }

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ManufacturerRepository")
@@ -58,6 +59,7 @@ class Manufacturer
     public function removeProduct(Product $product)
     {
         $this->products->removeElement($product);
+        $product->setManufacturer(null);
     }
     
     public function getProducts()
