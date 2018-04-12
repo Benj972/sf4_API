@@ -58,9 +58,28 @@ class UserController extends FOSRestController
         return $this->view($user, Response::HTTP_CREATED, ['Location' => $this->generateUrl('app_user_show', ['id' => $user->getId(), UrlGeneratorInterface::ABSOLUTE_URL])]);
     }
 
-
-    /*public function updateAction()
-
-    public function deleteAction()*/
+    /**
+     * @Rest\Delete(
+     *     path = "/users/{id}",
+     *     name = "app_user_delete",
+     *     requirements = { "id" = "\d+" }
+     * )
+     *
+     * @Rest\View(
+     *     statusCode = 204
+     * )
+     *
+     */
+    public function deleteAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('App:User')->findOneById($id);
+        if ($user) {
+            $em->remove($user);
+            $em->flush();
+        }
+        return;
+    }
+   
 
 }
