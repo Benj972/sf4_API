@@ -4,19 +4,17 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use Symfony\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
+use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use App\Representation\Products;
 
-class ProductController extends Controller
+class ProductController extends FOSRestController
 {
      /**
-     * @Get(
+     * @Rest\Get(
      *     path = "/products/{id}",
      *     name = "app_product_show",
      *     requirements = {"id"="\d+"}
