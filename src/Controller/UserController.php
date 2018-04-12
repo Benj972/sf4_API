@@ -7,6 +7,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\Annotations\View;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class UserController extends FOSRestController
 {
@@ -37,10 +40,26 @@ class UserController extends FOSRestController
         return $usersList;
     }
 
+    /**
+     * @Rest\Post(
+     *    path = "/users",
+     *    name = "app_user_create"
+     * )
+     * @Rest\View(StatusCode = 201)
+     * @ParamConverter("user", converter="fos_rest.request_body")
+     */
+    public function createAction(User $user)
+    {
+    	$em = $this->getDoctrine()->getManager();
 
-   /* public function createAction()
+        $em->persist($user);
+        $em->flush();
 
-    public function updateAction()
+        return $this->view($user, Response::HTTP_CREATED, ['Location' => $this->generateUrl('app_user_show', ['id' => $user->getId(), UrlGeneratorInterface::ABSOLUTE_URL])]);
+    }
+
+
+    /*public function updateAction()
 
     public function deleteAction()*/
 
