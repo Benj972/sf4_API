@@ -33,23 +33,12 @@ class Client
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $token;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="client",  cascade={"persist", "remove"}, orphanRemoval=true)
-     */
-    private $products;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="client",  cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $users;
 
     public function __construct()
     {
-        $this->products = new ArrayCollection();
         $this->users = new ArrayCollection();    
     }
 
@@ -92,23 +81,6 @@ class Client
         $this->email = $email;
 
         return $this;
-    }
-
-    public function getToken(): ?string
-    {
-        return $this->token;
-    }
-
-    public function setToken(string $token): self
-    {
-        $this->token = $token;
-
-        return $this;
-    }
-
-    public function getProducts()
-    {
-        return $this->products;
     }
 
     public function getUsers()
