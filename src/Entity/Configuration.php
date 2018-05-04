@@ -37,6 +37,12 @@ class Configuration
      */
     private $price;
 
+     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="configurations", cascade={"persist"})
+     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     */
+    private $product;
+
     public function getId()
     {
         return $this->id;
@@ -86,6 +92,18 @@ class Configuration
     public function setPrice(decimal $price)
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+     public function getProduct()
+    {
+        return $this->product;
+    }
+
+    public function setProduct(Product $product)
+    {
+        $this->product = $product;
 
         return $this;
     }

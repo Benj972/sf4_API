@@ -68,13 +68,14 @@ class Product
     private $manufacturer;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Configuration", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Configuration", mappedBy="product", cascade={"persist","remove"}, orphanRemoval=true)
      */
-    private $configuration;
+    private $configurations;
 
     public function __construct()
     {
         $this->images = new ArrayCollection();
+        $this->configurations = new ArrayCollection();
         $this->dateCreate = new \Datetime();    
     }
 
@@ -209,15 +210,20 @@ class Product
         return $this;
     }
 
-    public function setConfiguration(Configuration $configuraton)
+    public function addConfiguration(Configuration $configuraton)
     {
-        $this->configuration = $configuration;
-
-        return $this;
+        $this->configurations[] = $configuration;
+        $configuration->setProduct($this);
     }
 
-    public function getConfiguration()
+    public function removeConfiguration(Configuration $configuraton)
     {
-        return $this->configuration;
+        $this->configurations->removeElement($configuration);
+        $configuration->setProduct(null);
+    }
+
+    public function getConfigurations()
+    {
+        return $this->configurations;
     }
 }
