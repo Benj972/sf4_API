@@ -58,11 +58,6 @@ class Product
     private $autonomy;
 
     /**
-     * @ORM\Column(type="decimal", precision=6, scale=2)
-     */
-    private $price;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="product",  cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $images;
@@ -73,20 +68,13 @@ class Product
     private $manufacturer;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Configuration", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Configuration", cascade={"persist"})
      */
-    private $configurations;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="products", cascade={"persist"})
-     * @ORM\JoinColumn(name="client_id", referencedColumnName="id")
-     */
-    private $client;
+    private $configuration;
 
     public function __construct()
     {
         $this->images = new ArrayCollection();
-        $this->configurations = new ArrayCollection();
         $this->dateCreate = new \Datetime();    
     }
 
@@ -191,18 +179,6 @@ class Product
         return $this;
     }
 
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
-    public function setPrice(decimal $price)
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
     public function addImage(Image $image)
     {
         $this->images[] = $image;
@@ -233,32 +209,15 @@ class Product
         return $this;
     }
 
-    public function addConfiguration(Configuration $configuration)
+    public function setConfiguration(Configuration $configuraton)
     {
-        $configuration->addproduct($this); // synchronously updating inverse side
-        $this->configurations[] = $configuration;
-    }
-
-    public function removeConfiguration(Configuration $configuraton)
-    {
-        // Ici on utilise une méthode de l'ArrayCollection, pour supprimer la configuration en argument
-        $this->configurations->removeElement($configuration);
-    }
-
-    public function getConfigurations()
-    {
-        return $this->configurations;
-    }
-   
-    public function getClient()
-    {
-        return $this->client;
-    }
-
-    public function setClient(Client $client)
-    {
-        $this->client = $client;
+        $this->configuration = $configuration;
 
         return $this;
+    }
+
+    public function getConfiguration()
+    {
+        return $this->configuration;
     }
 }

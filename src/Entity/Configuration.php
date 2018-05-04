@@ -33,14 +33,9 @@ class Configuration
     private $serial;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Product", inversedBy="configurations", cascade={"persist"})
+     * @ORM\Column(type="decimal", precision=6, scale=2)
      */
-    private $products;
-
-    public function __construct()
-    {
-        $this->products = new ArrayCollection();  
-    }
+    private $price;
 
     public function getId()
     {
@@ -83,19 +78,15 @@ class Configuration
         return $this;
     }
 
-    public function addProduct(Product $product)
+    public function getPrice()
     {
-        $this->products[] = $product;
+        return $this->price;
     }
 
-    public function removeProduct(Product $product)
+    public function setPrice(decimal $price)
     {
-        // Ici on utilise une méthode de l'ArrayCollection, pour supprimer le produit en argument
-        $this->products->removeElement($product);
-    }
+        $this->price = $price;
 
-    public function getProducts()
-    {
-        return $this->products;
+        return $this;
     }
 }

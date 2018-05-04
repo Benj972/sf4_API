@@ -38,18 +38,12 @@ class Client
     private $token;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="client",  cascade={"persist", "remove"}, orphanRemoval=true)
-     */
-    private $products;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="client",  cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $users;
 
     public function __construct()
     {
-        $this->products = new ArrayCollection();
         $this->users = new ArrayCollection();    
     }
 
@@ -104,11 +98,6 @@ class Client
         $this->token = $token;
 
         return $this;
-    }
-
-    public function getProducts()
-    {
-        return $this->products;
     }
 
     public function getUsers()
