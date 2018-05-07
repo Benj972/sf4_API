@@ -8,8 +8,9 @@ use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
-use FOS\RestBundle\Request\ParamFetcherInterface;
-use App\Representation\Products;
+use Hateoas\Representation\PaginatedRepresentation;
+use Hateoas\Representation\CollectionRepresentation;
+use Doctrine\ORM\EntityManagerInterface;
 
 class ProductController extends FOSRestController
 {
@@ -28,42 +29,25 @@ class ProductController extends FOSRestController
 
     /**
      * @Rest\Get("/products", name="app_product_list")
-     * @Rest\QueryParam(
-     *     name="keyword",
-     *     requirements="[a-zA-Z0-9]",
-     *     nullable=true,
-     *     description="The keyword to search for."
-     * )
-     * @Rest\QueryParam(
-     *     name="order",
-     *     requirements="asc|desc",
-     *     default="asc",
-     *     description="Sort order (asc or desc)"
-     * )
-     * @Rest\QueryParam(
-     *     name="limit",
-     *     requirements="\d+",
-     *     default="15",
-     *     description="Max number of movies per page."
-     * )
-     * @Rest\QueryParam(
-     *     name="offset",
-     *     requirements="\d+",
-     *     default="1",
-     *     description="The pagination offset"
-     * )
+     *
      * @Rest\View()
      */
-    public function listAction(ParamFetcherInterface $paramFetcher)
+    public function listAction(EntityManagerInterface $manager)
     {
-        $pager = $this->getDoctrine()->getRepository('App\Entity\Product')->search(
-            $paramFetcher->get('keyword'),
-            $paramFetcher->get('order'),
-            $paramFetcher->get('limit'),
-            $paramFetcher->get('offset')
+        $products = $manager->getRepository(Product::class)->findAll();
+        $paginatedCollection = new PaginatedRepresentation(
+            new CollectionRepresentation(
+                $products,
+                'products',
+                'products'
+            ),
+            'app_product_list', // route
+            array(), // route parameters
+            1,       // page number
+            20,      // limit
+            4       // total pages
         );
 
-        return new Products($pager);
-    }
-    
+        return $paginatedCollection;
+    }  
 }

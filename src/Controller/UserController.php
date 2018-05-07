@@ -10,6 +10,9 @@ use FOS\RestBundle\Controller\Annotations\View;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Hateoas\Representation\PaginatedRepresentation;
+use Hateoas\Representation\CollectionRepresentation;
+use Doctrine\ORM\EntityManagerInterface;
 
 class UserController extends FOSRestController
 {
@@ -33,11 +36,23 @@ class UserController extends FOSRestController
      * )
      * @Rest\View()
      */
-    public function listUserAction()
+    public function listUserAction(EntityManagerInterface $manager)
     {
-        $em = $this->getDoctrine()->getManager();
-        $usersList = $em->getRepository('App:User')->findAll();
-        return $usersList;
+        $usersList = $manager->getRepository(User::class)->findAll();
+        $paginatedCollection = new PaginatedRepresentation(
+            new CollectionRepresentation(
+                $usersList,
+                'usersList',
+                'usersList'
+            ),
+            'app_user_list', // route
+            array(), // route parameters
+            1,       // page number
+            20,      // limit
+            4       // total pages
+        );
+
+        return $paginatedCollection;
     }
 
     /**

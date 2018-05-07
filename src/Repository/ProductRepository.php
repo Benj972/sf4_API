@@ -6,7 +6,8 @@ use App\Entity\Product;
 
 class ProductRepository extends AbstractRepository
 {
-    public function search($term, $order = 'asc', $limit = 20, $offset = 0)
+    //Test Pagination with PagerFanta
+    /*public function search($term, $order = 'asc', $limit = 20, $offset = 0)
     {
         $qb = $this
             ->createQueryBuilder('p')
@@ -22,5 +23,5 @@ class ProductRepository extends AbstractRepository
         }
         
         return $this->paginate($qb, $limit, $offset);
-    }
+    }*/
 }
