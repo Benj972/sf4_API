@@ -24,6 +24,15 @@ use Hateoas\Configuration\Annotation as Hateoas;
  * )
  *
  * @Hateoas\Relation(
+ *      "list",
+ *      href = @Hateoas\Route(
+ *          "app_user_list",
+ *          parameters = { "id" = "expr(object.getId())" },
+ *          absolute = true
+ *      )
+ * )
+ *
+ * @Hateoas\Relation(
  *      "create",
  *      href = @Hateoas\Route(
  *          "app_user_create",
@@ -31,6 +40,16 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *          absolute = true
  *      )
  * )
+ *
+ * @Hateoas\Relation(
+ *      "update",
+ *      href = @Hateoas\Route(
+ *          "app_user_update",
+ *          parameters = { "id" = "expr(object.getId())" },
+ *          absolute = true
+ *      )
+ * )
+ *
  * @Hateoas\Relation(
  *      "delete",
  *      href = @Hateoas\Route(

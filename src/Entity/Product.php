@@ -25,8 +25,22 @@ use Hateoas\Configuration\Annotation as Hateoas;
  * )
  *
  * @Hateoas\Relation(
+ *      "list",
+ *      href = @Hateoas\Route(
+ *          "app_product_list",
+ *          parameters = { "id" = "expr(object.getId())" },
+ *          absolute = true
+ *      )
+ * )
+ *
+ * @Hateoas\Relation(
  *     "manufacturer",
  *     embedded = @Hateoas\Embedded("expr(object.getManufacturer())")
+ * )
+ *
+ * @Hateoas\Relation(
+ *     "configurations",
+ *     embedded = @Hateoas\Embedded("expr(object.getConfigurations())")
  * )
  *
  */
@@ -61,31 +75,37 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Expose
      */
     private $size;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Expose
      */
     private $multimedia;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Expose
      */
     private $networks;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Expose
      */
     private $screen;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Expose
      */
     private $autonomy;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="product",  cascade={"persist", "remove"}, orphanRemoval=true)
+     * @Expose
      */
     private $images;
 
