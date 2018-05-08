@@ -22,7 +22,7 @@ class UserController extends FOSRestController
 	 *		name = "app_user_show",
 	 *		requirements = {"id"="\d+"}
 	 * )
-	 * @Rest\View
+	 * @Rest\View(StatusCode = 200)
 	 */
     public function viewAction(User $user)
 	{
@@ -34,7 +34,7 @@ class UserController extends FOSRestController
      *     path = "/users",
      *     name = "app_user_list"
      * )
-     * @Rest\View()
+     * @Rest\View(StatusCode = 200)
      */
     public function listUserAction(EntityManagerInterface $manager)
     {
@@ -63,12 +63,31 @@ class UserController extends FOSRestController
      * @Rest\View(StatusCode = 201)
      * @ParamConverter("user", converter="fos_rest.request_body")
      */
-    public function createAction(User $user)
+    public function createAction(User $user, EntityManagerInterface $manager)
     {
-    	$em = $this->getDoctrine()->getManager();
+        $manager->persist($user);
+        $manager->flush();
 
-        $em->persist($user);
-        $em->flush();
+        return $this->view($user, Response::HTTP_CREATED, ['Location' => $this->generateUrl('app_user_show', ['id' => $user->getId(), UrlGeneratorInterface::ABSOLUTE_URL])]);
+    }
+
+    /**
+     * @Rest\Put(
+     *    path = "/users/{id}",
+     *    name = "app_user_update"
+     * )
+     * @Rest\View(StatusCode = 200)
+     * @ParamConverter("updateUser", converter="fos_rest.request_body")
+     */
+    public function updateAction(User $user, User $updateUser, EntityManagerInterface $manager)
+    {
+        $user->setEmail($updateUser->getEmail());
+        $user->setLastname($updateUser->getLastname());
+        $user->setFirstname($updateUser->getFirstname());
+        /*$user->setClient($updateUser->getClient());*/
+
+        $manager->persist($user);
+        $manager->flush();
 
         return $this->view($user, Response::HTTP_CREATED, ['Location' => $this->generateUrl('app_user_show', ['id' => $user->getId(), UrlGeneratorInterface::ABSOLUTE_URL])]);
     }
@@ -85,13 +104,11 @@ class UserController extends FOSRestController
      * )
      *
      */
-    public function deleteAction($id)
+    public function deleteAction(User $user, EntityManagerInterface $manager)
     {
-        $em = $this->getDoctrine()->getManager();
-        $user = $em->getRepository('App:User')->findOneById($id);
         if ($user) {
-            $em->remove($user);
-            $em->flush();
+            $manager->remove($user);
+            $manager->flush();
         }
         return;
     }
