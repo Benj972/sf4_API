@@ -6,7 +6,6 @@ use App\Entity\Product;
 use Symfony\Bundle\FrameworkExtraBundle\Configuration\Route;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use Hateoas\Representation\PaginatedRepresentation;
 use Hateoas\Representation\CollectionRepresentation;
@@ -20,7 +19,7 @@ class ProductController extends FOSRestController
      *     name = "app_product_show",
      *     requirements = {"id"="\d+"}
      * )
-     * @View
+     * @View(StatusCode = 200)
      */
     public function showAction(Product $product)
     {
@@ -30,7 +29,7 @@ class ProductController extends FOSRestController
     /**
      * @Rest\Get("/products", name="app_product_list")
      *
-     * @Rest\View()
+     * @Rest\View(StatusCode = 200)
      */
     public function listAction(EntityManagerInterface $manager)
     {
