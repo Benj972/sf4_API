@@ -48,6 +48,30 @@ class LoadImage extends Fixture implements DependentFixtureInterface
         $image6->setProduct($this->getReference('product3'));
         $manager->persist($image6);
 
+        $image7 = new Image;
+        $image7->setUrl('http://mobile.free.fr/fiche_mobile/samsung/galaxy_S9_Plus/violet/images/1.jpg');
+        $image7->setAlt('Galaxy S9');
+        $image7->setProduct($this->getReference('product4'));
+        $manager->persist($image7);
+
+        $image8 = new Image;
+        $image8->setUrl('http://mobile.free.fr/fiche_mobile/samsung/galaxy_S9_Plus/bleu/images/1.jpg');
+        $image8->setAlt('Galaxy S9');
+        $image8->setProduct($this->getReference('product4'));
+        $manager->persist($image8);
+
+        $image9 = new Image;
+        $image9->setUrl('http://mobile.free.fr/fiche_mobile/apple/iPhone_8/rouge/64go/images/1.jpg');
+        $image9->setAlt('iPhone 8');
+        $image9->setProduct($this->getReference('product5'));
+        $manager->persist($image9);
+
+        $image10 = new Image;
+        $image10->setUrl('http://mobile.free.fr/fiche_mobile/samsung/galaxy_S8_Plus/noirCarbone/images/1.jpg');
+        $image10->setAlt('Galaxy S8 +');
+        $image10->setProduct($this->getReference('product6'));
+        $manager->persist($image10);
+
         $manager->flush();
     }
 

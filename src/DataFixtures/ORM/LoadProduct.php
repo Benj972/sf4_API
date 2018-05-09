@@ -53,50 +53,61 @@ class LoadProduct extends Fixture implements DependentFixtureInterface
         $product3->setManufacturer($this->getReference('manufacturer2'));
         $manager->persist($product3);
 
-        /*$product4 = new Product;
-        $product4->setName('');
-        $product4->setSize('');
-        $product4->setMultimedia('');
-        $product4->setNetworks('');
-        $product4->setScreen('');
-        $product4->setAutonomy('');
-        $product4->setDescription('');
+        $product4 = new Product;
+        $product4->setName('Galaxy S9');
+        $product4->setSize('158.1 x 73.8 x 8.5 mm');
+        $product4->setMultimedia('Caméra principale : 12 mégapixels');
+        $product4->setNetworks('Bluetooth 5.0 - Bandes 4G FDD - Wi-Fi 802.11a, b, g, n, ac');
+        $product4->setScreen('6.2 pouces');
+        $product4->setAutonomy('3500 mAh');
+        $product4->setDescription('L\'appareil photo. Réinventé.');
         $product4->setDateCreate(new \DateTime('2018-05-09 09:35:36'));
-        $product4->setManufacturer($this->getReference('manufacturer2'));
+        $product4->setManufacturer($this->getReference('manufacturer1'));
         $manager->persist($product4);
 
         $product5 = new Product;
-        $product5->setName('');
-        $product5->setSize('');
-        $product5->setMultimedia('');
-        $product5->setNetworks('');
-        $product5->setScreen('');
-        $product5->setAutonomy('');
-        $product5->setDescription('');
+        $product5->setName('iPhone 8');
+        $product5->setSize('138.4 x 67.3 x 7.3 mm');
+        $product5->setMultimedia('Caméra principale : 12 mégapixels - Geo-tagging, Détecteur de visage, Mise au point sélective, HDR, Live Stream Video, Panorama');
+        $product5->setNetworks('Bluetooth 5.0 - Bandes 4G FDD - Bandes 4G TDD');
+        $product5->setScreen('4.7 pouces');
+        $product5->setAutonomy('Jusqu\'à 14 heures');
+        $product5->setDescription('L’iPhone 8 inaugure une nouvelle génération d’iPhone.
+            Paré du verre le plus résistant jamais conçu pour un smartphone et d’un contour plus solide en aluminium de qualité aérospatiale, il se
+            charge sans fil et résiste à l’eau et à la poussière. Il intègre un écran Retina HD de 4,7 pouces avec affichage True Tone3 ainsi qu’un
+            appareil photo 12 Mpx avec un nouveau capteur et un processeur de signal d’image avancé. Il est piloté par A11 Bionic, la puce la plus
+            puissante et la plus intelligente jamais vue sur un smartphone.
+            Et il prend en charge les expériences de réalité augmentée dans les apps et les jeux. Avec l’iPhone 8 , l’intelligence n’a jamais pris
+            une forme aussi nouvelle. Ni aussi belle.');
         $product5->setDateCreate(new \DateTime('2018-05-09 09:35:36'));
         $product5->setManufacturer($this->getReference('manufacturer2'));
         $manager->persist($product5);
 
         $product6 = new Product;
-        $product6->setName('');
-        $product6->setSize('');
-        $product6->setMultimedia('');
-        $product6->setNetworks('');
-        $product6->setScreen('');
-        $product6->setAutonomy('');
-        $product6->setDescription('');
+        $product6->setName('Galaxy S8 +');
+        $product6->setSize('159.5 x 73.4 x 8.1 mm');
+        $product6->setMultimedia('12 mégapixels - Geo-tagging, Détecteur de visage, Contrôle vocal, Contrôle par mouvements, Mise au point sélective, HDR, Panorama, Ralenti, Pro - Collage vidéo, Contrôle vocal, Contrôle par mouvements, Mise au point sélective, HDR, Panorama, Selfie panorama, Pro');
+        $product6->setNetworks('Bluetooth 5.0 - Bandes 4G FDD - Bandes 4G TDD - Wi-Fi 802.11a, b, g, n, ac');
+        $product6->setScreen('6.2 pouces');
+        $product6->setAutonomy('3500 mAh');
+        $product6->setDescription('Vous pensiez savoir à quoi ressemble un smartphone ? Maintenant, imaginez une fenêtre ouverte sur demain.
+            Le Samsung Galaxy S8 + bouscule les codes esthétiques et repousse les limites des écrans tels que vous les connaissiez. Son écran
+            Infinity sublime la richesse des images et offre une immersion spectaculaire. Un nouveau monde s’ouvre au creux de votre main. Sortez du
+            cadre.
+            Vous ne verrez plus jamais votre smartphone de la même manière.
+            Unbox your phone, unbox your life.');
         $product6->setDateCreate(new \DateTime('2018-05-09 09:35:36'));
-        $product6->setManufacturer($this->getReference('manufacturer2'));
-        $manager->persist($product6);*/
+        $product6->setManufacturer($this->getReference('manufacturer1'));
+        $manager->persist($product6);
 
         $manager->flush();
 
         $this->addReference('product1', $product1);
         $this->addReference('product2', $product2);
         $this->addReference('product3', $product3);
-        /*$this->addReference('product4', $product4);
+        $this->addReference('product4', $product4);
         $this->addReference('product5', $product5);
-        $this->addReference('product6', $product6);*/
+        $this->addReference('product6', $product6);
     }
 
     public function getDependencies()

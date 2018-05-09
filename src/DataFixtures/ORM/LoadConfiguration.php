@@ -61,6 +61,38 @@ class LoadConfiguration extends Fixture implements DependentFixtureInterface
         $configuration6->setProduct($this->getReference('product3'));
         $manager->persist($configuration6);
 
+        $configuration7 = new Configuration;
+        $configuration7->setColor('Ultra Violet');
+        $configuration7->setMemory('64Go');
+        $configuration7->setSerial('api7');
+        $configuration7->setPrice('850,99');
+        $configuration7->setProduct($this->getReference('product4'));
+        $manager->persist($configuration7);
+
+        $configuration8 = new Configuration;
+        $configuration8->setColor('Bleu Corail');
+        $configuration8->setMemory('64Go');
+        $configuration8->setSerial('api8');
+        $configuration8->setPrice('850,99');
+        $configuration8->setProduct($this->getReference('product4'));
+        $manager->persist($configuration8);
+
+        $configuration9 = new Configuration;
+        $configuration9->setColor('Rouge');
+        $configuration9->setMemory('64Go');
+        $configuration9->setSerial('api9');
+        $configuration9->setPrice('800,99');
+        $configuration9->setProduct($this->getReference('product5'));
+        $manager->persist($configuration9);
+
+        $configuration10 = new Configuration;
+        $configuration10->setColor('Noir carbone');
+        $configuration10->setMemory('64Go');
+        $configuration10->setSerial('api10');
+        $configuration10->setPrice('750,99');
+        $configuration10->setProduct($this->getReference('product6'));
+        $manager->persist($configuration10);
+
         $manager->flush();
     }
 
