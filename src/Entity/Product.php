@@ -62,7 +62,7 @@ class Product
     private $name;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="datetime")
      * @Expose
      */
     private $dateCreate;
@@ -143,12 +143,12 @@ class Product
         return $this;
     }
 
-    public function getDateCreate(): ?\DateTimeImmutable
+    public function getDateCreate(): ?\DateTime
     {
         return $this->dateCreate;
     }
 
-    public function setDateCreate(\DateTimeImmutable $dateCreate): self
+    public function setDateCreate(\DateTime $dateCreate): self
     {
         $this->dateCreate = $dateCreate;
 
