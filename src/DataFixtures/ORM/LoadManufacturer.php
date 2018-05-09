@@ -2,12 +2,11 @@
 
 namespace App\DataFixtures\ORM;
 
-use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\Manufacturer;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class LoadManufacturer extends AbstractFixture implements DependentFixtureInterface
+class LoadManufacturer extends Fixture 
 {   
     public function load(ObjectManager $manager)
     {
