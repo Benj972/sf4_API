@@ -89,7 +89,7 @@ class Configuration
         return $this->price;
     }
 
-    public function setPrice(decimal $price)
+    public function setPrice($price)
     {
         $this->price = $price;
 
