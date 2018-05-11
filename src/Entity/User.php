@@ -7,6 +7,7 @@ use JMS\Serializer\Annotation as Serializer;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use Hateoas\Configuration\Annotation as Hateoas;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -80,6 +81,7 @@ class User
      * @ORM\Column(type="string", length=255)
      *
      * @Expose
+     * @Assert\NotBlank(groups={"Create"})
      */
     private $email;
 
@@ -87,6 +89,7 @@ class User
      * @ORM\Column(type="string", length=255)
      *
      * @Expose
+     * @Assert\NotBlank(groups={"Create"})
      */
     private $lastname;
 
@@ -94,6 +97,7 @@ class User
      * @ORM\Column(type="string", length=255)
      *
      * @Expose
+     * @Assert\NotBlank(groups={"Create"})
      */
     private $firstname;
 
