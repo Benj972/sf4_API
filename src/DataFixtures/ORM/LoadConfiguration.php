@@ -94,6 +94,17 @@ class LoadConfiguration extends Fixture implements DependentFixtureInterface
         $manager->persist($configuration10);
 
         $manager->flush();
+
+        $this->addReference('configuration1', $configuration1);
+        $this->addReference('configuration2', $configuration2);
+        $this->addReference('configuration3', $configuration3);
+        $this->addReference('configuration4', $configuration4);
+        $this->addReference('configuration5', $configuration5);
+        $this->addReference('configuration6', $configuration6);
+        $this->addReference('configuration7', $configuration7);
+        $this->addReference('configuration8', $configuration8);
+        $this->addReference('configuration9', $configuration9);
+        $this->addReference('configuration10', $configuration10);
     }
 
     public function getDependencies()
