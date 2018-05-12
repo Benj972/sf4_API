@@ -45,6 +45,11 @@ class Configuration
      */
     private $price;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="configuration",  cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    private $images;
+
      /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="configurations", cascade={"persist"})
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
@@ -104,7 +109,25 @@ class Configuration
         return $this;
     }
 
-     public function getProduct()
+    public function addImage(Image $image)
+    {
+        $this->images[] = $image;
+        // We link the image to the product
+        $image->setProduct($this);
+    }
+
+    public function removeImage(Image $image)
+    {
+        $this->images->removeElement($image);
+        $image->setProduct(null);
+    }
+    
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    public function getProduct()
     {
         return $this->product;
     }
