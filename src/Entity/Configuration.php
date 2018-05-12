@@ -4,9 +4,12 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ConfigurationRepository")
+ * @ExclusionPolicy("all")
  */
 class Configuration
 {
@@ -14,26 +17,31 @@ class Configuration
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Expose
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Expose
      */
     private $color;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Expose
      */
     private $memory;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Expose
      */
     private $serial;
 
     /**
      * @ORM\Column(type="decimal", precision=6, scale=2)
+     * @Expose
      */
     private $price;
 
@@ -94,7 +102,7 @@ class Configuration
         return $this->price;
     }
 
-    public function setPrice(decimal $price)
+    public function setPrice($price)
     {
         $this->price = $price;
 

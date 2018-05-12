@@ -4,9 +4,35 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use JMS\Serializer\Annotation as Serializer;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
+ * @ORM\Table()
+ *
+ * @ExclusionPolicy("all")
+ *
+ * @Hateoas\Relation(
+ *      "self",
+ *      href = @Hateoas\Route(
+ *          "app_product_show",
+ *          parameters = { "id" = "expr(object.getId())" },
+ *          absolute = true
+ *      )
+ * )
+ *
+ * @Hateoas\Relation(
+ *      "list",
+ *      href = @Hateoas\Route(
+ *          "app_product_list",
+ *          parameters = { "id" = "expr(object.getId())" },
+ *          absolute = true
+ *      )
+ * )
+ *
  */
 class Product
 {
@@ -14,56 +40,68 @@ class Product
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     *
+     * @Expose
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Expose
      */
     private $name;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="datetime")
+     * @Expose
      */
     private $dateCreate;
 
     /**
      * @ORM\Column(type="text")
+     * @Expose
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Expose
      */
     private $size;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Expose
      */
     private $multimedia;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Expose
      */
     private $networks;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Expose
      */
     private $screen;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Expose
      */
     private $autonomy;
-
+  
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Manufacturer", inversedBy="product", cascade={"persist"})
+     * @Expose
      */
     private $manufacturer;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Configuration", mappedBy="product", cascade={"persist","remove"}, orphanRemoval=true)
+     * @Expose
      */
     private $configurations;
 
@@ -91,12 +129,12 @@ class Product
         return $this;
     }
 
-    public function getDateCreate(): ?\DateTimeImmutable
+    public function getDateCreate(): ?\DateTime
     {
         return $this->dateCreate;
     }
 
-    public function setDateCreate(\DateTimeImmutable $dateCreate): self
+    public function setDateCreate(\DateTime $dateCreate): self
     {
         $this->dateCreate = $dateCreate;
 
