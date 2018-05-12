@@ -27,10 +27,10 @@ class Image
     private $alt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="images", cascade={"persist"})
-     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Configuration", inversedBy="images", cascade={"persist"})
+     * @ORM\JoinColumn(name="configuration_id", referencedColumnName="id")
      */
-    private $product;
+    private $configuration;
 
     public function getId()
     {
@@ -61,14 +61,14 @@ class Image
         return $this;
     }
 
-    public function getProduct()
+    public function getConfiguration()
     {
-        return $this->product;
+        return $this->configuration;
     }
 
-    public function setProduct(Product $product)
+    public function setConfiguration(Configuration $configuration)
     {
-        $this->product = $product;
+        $this->configuration = $configuration;
 
         return $this;
     }

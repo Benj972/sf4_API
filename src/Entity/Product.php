@@ -58,11 +58,6 @@ class Product
     private $autonomy;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="product",  cascade={"persist", "remove"}, orphanRemoval=true)
-     */
-    private $images;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Manufacturer", inversedBy="product", cascade={"persist"})
      */
     private $manufacturer;
@@ -178,24 +173,6 @@ class Product
         $this->autonomy = $autonomy;
 
         return $this;
-    }
-
-    public function addImage(Image $image)
-    {
-        $this->images[] = $image;
-        // We link the image to the product
-        $image->setProduct($this);
-    }
-
-    public function removeImage(Image $image)
-    {
-        $this->images->removeElement($image);
-        $image->setProduct(null);
-    }
-    
-    public function getImages()
-    {
-        return $this->images;
     }
 
     public function getManufacturer()
