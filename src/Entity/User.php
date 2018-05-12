@@ -81,7 +81,7 @@ class User
      * @ORM\Column(type="string", length=255)
      *
      * @Expose
-     * @Assert\NotBlank(groups={"Create"})
+     * @Assert\NotBlank(groups={"Create", "Update"})
      */
     private $email;
 
@@ -89,7 +89,7 @@ class User
      * @ORM\Column(type="string", length=255)
      *
      * @Expose
-     * @Assert\NotBlank(groups={"Create"})
+     * @Assert\NotBlank(groups={"Create", "Update"})
      */
     private $lastname;
 
@@ -97,7 +97,7 @@ class User
      * @ORM\Column(type="string", length=255)
      *
      * @Expose
-     * @Assert\NotBlank(groups={"Create"})
+     * @Assert\NotBlank(groups={"Create", "Update"})
      */
     private $firstname;
 
