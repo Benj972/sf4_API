@@ -47,6 +47,7 @@ class Configuration
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="configuration",  cascade={"persist", "remove"}, orphanRemoval=true)
+     * @Expose
      */
     private $images;
 
