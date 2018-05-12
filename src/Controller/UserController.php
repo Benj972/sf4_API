@@ -13,6 +13,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Hateoas\Representation\PaginatedRepresentation;
 use Hateoas\Representation\CollectionRepresentation;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Validator\ConstraintViolationList;
 
 class UserController extends FOSRestController
 {
@@ -61,10 +62,20 @@ class UserController extends FOSRestController
      *    name = "app_user_create"
      * )
      * @Rest\View(StatusCode = 201)
-     * @ParamConverter("user", converter="fos_rest.request_body")
+     * @ParamConverter(
+     *      "user", 
+     *      converter="fos_rest.request_body",
+     *      options={
+     *          "validator"={ "groups"="Create" }
+     *      }
+     * )
      */
-    public function createAction(User $user, EntityManagerInterface $manager)
+    public function createAction(User $user, EntityManagerInterface $manager, ConstraintViolationList $violations)
     {
+        if (count($violations)) {
+            return $this->view($violations, Response::HTTP_BAD_REQUEST);
+        }
+        
         $manager->persist($user);
         $manager->flush();
 
@@ -77,10 +88,20 @@ class UserController extends FOSRestController
      *    name = "app_user_update"
      * )
      * @Rest\View(StatusCode = 200)
-     * @ParamConverter("updateUser", converter="fos_rest.request_body")
+     * @ParamConverter(
+     *      "updateUser",
+     *       converter="fos_rest.request_body",
+     *       options={
+     *          "validator"={ "groups"="Update" }
+     *      }
+     * )
      */
-    public function updateAction(User $user, User $updateUser, EntityManagerInterface $manager)
+    public function updateAction(User $user, User $updateUser, EntityManagerInterface $manager, ConstraintViolationList $violations)
     {
+        if (count($violations)) {
+            return $this->view($violations, Response::HTTP_BAD_REQUEST);
+        }
+
         $user->setEmail($updateUser->getEmail());
         $user->setLastname($updateUser->getLastname());
         $user->setFirstname($updateUser->getFirstname());
