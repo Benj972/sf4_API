@@ -48,60 +48,70 @@ class Product
     /**
      * @ORM\Column(type="string", length=255)
      * @Expose
+     * @Serializer\Since("1.0")
      */
     private $name;
 
     /**
      * @ORM\Column(type="datetime")
      * @Expose
+     * @Serializer\Since("1.0")
      */
     private $dateCreate;
 
     /**
      * @ORM\Column(type="text")
      * @Expose
+     * @Serializer\Since("1.0")
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Expose
+     * @Serializer\Since("1.0")
      */
     private $size;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @Expose
+     * @Serializer\Since("1.0")
      */
     private $multimedia;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @Expose
+     * @Serializer\Since("1.0")
      */
     private $networks;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @Expose
+     * @Serializer\Since("1.0")
      */
     private $screen;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @Expose
+     * @Serializer\Since("1.0")
      */
     private $autonomy;
   
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Manufacturer", inversedBy="product", cascade={"persist"})
      * @Expose
+     * @Serializer\Since("1.0")
      */
     private $manufacturer;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Configuration", mappedBy="product", cascade={"persist","remove"}, orphanRemoval=true)
      * @Expose
+     * @Serializer\Since("1.0")
      */
     private $configurations;
 
