@@ -76,6 +76,7 @@ class User
      * @ORM\Column(type="string", length=255)
      *
      * @Expose
+     * @Serializer\Since("1.0")
      * @Assert\NotBlank(groups={"Create", "Update"})
      */
     private $email;
@@ -84,6 +85,7 @@ class User
      * @ORM\Column(type="string", length=255)
      *
      * @Expose
+     * @Serializer\Since("1.0")
      * @Assert\NotBlank(groups={"Create", "Update"})
      */
     private $lastname;
@@ -92,6 +94,7 @@ class User
      * @ORM\Column(type="string", length=255)
      *
      * @Expose
+     * @Serializer\Since("1.0")
      * @Assert\NotBlank(groups={"Create", "Update"})
      */
     private $firstname;
