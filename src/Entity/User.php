@@ -59,11 +59,6 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *      )
  * )
  *
- * @Hateoas\Relation(
- *     "client",
- *     embedded = @Hateoas\Embedded("expr(object.getClient())")
- * )
- *
  */
 class User
 {

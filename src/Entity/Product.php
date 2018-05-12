@@ -33,16 +33,6 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *      )
  * )
  *
- * @Hateoas\Relation(
- *     "manufacturer",
- *     embedded = @Hateoas\Embedded("expr(object.getManufacturer())")
- * )
- *
- * @Hateoas\Relation(
- *     "configurations",
- *     embedded = @Hateoas\Embedded("expr(object.getConfigurations())")
- * )
- *
  */
 class Product
 {
@@ -111,11 +101,13 @@ class Product
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Manufacturer", inversedBy="product", cascade={"persist"})
+     * @Expose
      */
     private $manufacturer;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Configuration", mappedBy="product", cascade={"persist","remove"}, orphanRemoval=true)
+     * @Expose
      */
     private $configurations;
 
