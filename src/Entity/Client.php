@@ -4,11 +4,12 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ClientRepository")
  */
-class Client
+class Client implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -87,4 +88,27 @@ class Client
     {
         return $this->users;
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function getRoles()
+    {
+        return ["ROLE_USER"];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getSalt()
+    {
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function eraseCredentials()
+    {
+    }
+
 }
