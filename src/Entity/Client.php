@@ -21,11 +21,6 @@ class Client implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $username;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $password;
 
     /**
@@ -46,18 +41,6 @@ class Client implements UserInterface
     public function getId()
     {
         return $this->id;
-    }
-
-    public function getUsername(): ?string
-    {
-        return $this->username;
-    }
-
-    public function setUsername(string $username): self
-    {
-        $this->username = $username;
-
-        return $this;
     }
 
     public function getPassword(): ?string
@@ -107,8 +90,15 @@ class Client implements UserInterface
     /**
      * @inheritdoc
      */
+    public function getUsername()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function eraseCredentials()
     {
     }
-
 }
