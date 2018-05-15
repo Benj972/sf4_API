@@ -75,7 +75,7 @@ class UserController extends FOSRestController
         if (count($violations)) {
             return $this->view($violations, Response::HTTP_BAD_REQUEST);
         }
-        
+        $user->setClient($this->getUser());
         $manager->persist($user);
         $manager->flush();
 
@@ -105,8 +105,8 @@ class UserController extends FOSRestController
         $user->setEmail($updateUser->getEmail());
         $user->setLastname($updateUser->getLastname());
         $user->setFirstname($updateUser->getFirstname());
-        /*$user->setClient($updateUser->getClient());*/
-
+        $user->setClient($this->getUser());
+        
         $manager->persist($user);
         $manager->flush();
 
