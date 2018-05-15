@@ -72,32 +72,20 @@ class Client implements UserInterface
         return $this->users;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function getRoles()
     {
         return ["ROLE_USER"];
     }
 
-    /**
-     * @inheritdoc
-     */
     public function getSalt()
     {
     }
 
-    /**
-     * @inheritdoc
-     */
     public function getUsername()
     {
         return $this->email;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function eraseCredentials()
     {
     }
