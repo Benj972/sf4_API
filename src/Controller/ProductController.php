@@ -10,6 +10,7 @@ use FOS\RestBundle\Controller\Annotations\View;
 use Hateoas\Representation\PaginatedRepresentation;
 use Hateoas\Representation\CollectionRepresentation;
 use Doctrine\ORM\EntityManagerInterface;
+use Swagger\Annotations as SWG;
 
 class ProductController extends FOSRestController
 {
@@ -20,6 +21,32 @@ class ProductController extends FOSRestController
      *     requirements = {"id"="\d+"}
      * )
      * @View(StatusCode = 200)
+     * @SWG\Get(    
+     *     description="Get one product.",
+     *     @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *     ),
+     *     @SWG\Response(
+     *         response="400",
+     *         description="No route found: Method Not Allowed",
+     *     ),
+     *     @SWG\Response(
+     *         response="401",
+     *         description="Expired JWT Token/JWT Token not found",
+     *     ),
+     *     @SWG\Response(
+     *         response="404",
+     *         description="Product object not found: Invalid ID supplied/Invalid Route",
+     *     ), 
+     *     @SWG\Parameter(
+     *          name="id",
+     *          required= true,
+     *          in="path",
+     *          type="integer",
+     *          description="The product unique identifier.",
+     *     )
+     * )
      */
     public function showAction(Product $product)
     {
@@ -30,6 +57,25 @@ class ProductController extends FOSRestController
      * @Rest\Get("/products", name="app_product_list")
      *
      * @Rest\View(StatusCode = 200)
+     * @SWG\Get(
+     *     description="Get the list of products.",
+     *     @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *     ),
+     *     @SWG\Response(
+     *         response="400",
+     *         description="No route found: Method Not Allowed",
+     *     ),
+     *     @SWG\Response(
+     *         response="401",
+     *         description="Expired JWT Token/JWT Token not found",
+     *     ),
+     *     @SWG\Response(
+     *         response="404",
+     *         description="Invalid Route",
+     *     ), 
+     * )
      */
     public function listAction(EntityManagerInterface $manager)
     {
