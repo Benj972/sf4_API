@@ -29,8 +29,16 @@ class ProductController extends FOSRestController
      *     ),
      *     @SWG\Response(
      *         response="400",
-     *         description="Invalid ...",
+     *         description="No route found: Method Not Allowed",
      *     ),
+     *     @SWG\Response(
+     *         response="401",
+     *         description="Expired JWT Token/JWT Token not found",
+     *     ),
+     *     @SWG\Response(
+     *         response="404",
+     *         description="Product object not found: Invalid ID supplied/Invalid Route",
+     *     ), 
      *     @SWG\Parameter(
      *          name="id",
      *          required= true,
@@ -57,8 +65,16 @@ class ProductController extends FOSRestController
      *     ),
      *     @SWG\Response(
      *         response="400",
-     *         description="Invalid ...",
+     *         description="No route found: Method Not Allowed",
      *     ),
+     *     @SWG\Response(
+     *         response="401",
+     *         description="Expired JWT Token/JWT Token not found",
+     *     ),
+     *     @SWG\Response(
+     *         response="404",
+     *         description="Invalid Route",
+     *     ), 
      * )
      */
     public function listAction(EntityManagerInterface $manager)
