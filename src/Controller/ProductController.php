@@ -3,13 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Handler\PaginateProductsHandler;
 use Symfony\Bundle\FrameworkExtraBundle\Configuration\Route;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\Annotations\View;
-use Hateoas\Representation\PaginatedRepresentation;
-use Hateoas\Representation\CollectionRepresentation;
-use Doctrine\ORM\EntityManagerInterface;
 use Swagger\Annotations as SWG;
 
 class ProductController extends FOSRestController
@@ -77,22 +75,8 @@ class ProductController extends FOSRestController
      *     ), 
      * )
      */
-    public function listAction(EntityManagerInterface $manager)
+    public function listAction(PaginateProductsHandler $handler)
     {
-        $products = $manager->getRepository(Product::class)->findAll();
-        $paginatedCollection = new PaginatedRepresentation(
-            new CollectionRepresentation(
-                $products,
-                'products',
-                'products'
-            ),
-            'app_product_list', // route
-            array(), // route parameters
-            1,       // page number
-            20,      // limit
-            4       // total pages
-        );
-
-        return $paginatedCollection;
+       return $handler->handle();
     }  
 }

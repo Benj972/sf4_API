@@ -1,0 +1,51 @@
+<?php
+
+namespace App\Handler;
+
+use App\Handler\CreateRequestHandler;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Validation;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Doctrine\ORM\EntityManagerInterface;
+
+class ValidatorHandler extends CreateRequestHandler
+{	
+
+    private $requestStack;
+
+	public function __construct(RequestStack $requestStack, EntityManagerInterface $manager, TokenStorageInterface $tokenStorage)
+    {
+        parent::__construct($manager, $tokenStorage);
+        $this->requestStack = $requestStack;
+    }
+
+	public function validate()	
+	{
+		$request = $this->requestStack->getCurrentRequest();
+        $array = array(
+        'email' => $request->request->get('email'), 
+        'lastname' => $request->request->get('lastname'),  
+        'firstname' => $request->request->get('firstname'),
+        );
+
+        $constraint = new Assert\Collection(array(
+        // the keys correspond to the keys in the input array
+        'email' => new Assert\Email(),
+        'lastname' => new Assert\NotBlank(),
+        'firstname' => new Assert\NotBlank(),
+        ));
+
+        
+        /*$jsonData = $request->request->all();*/
+
+        $validator = Validation::createValidator();        
+        $violations = $validator->validate($array, $constraint);
+
+        if (count($violations)>0) {
+            throw new BadRequestHttpException($violations);
+        }
+    }
+}
