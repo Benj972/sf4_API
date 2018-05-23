@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Handler\PaginateProductsHandler;
+use App\Handler\SearchHandler;
 use Symfony\Bundle\FrameworkExtraBundle\Configuration\Route;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -76,6 +77,16 @@ class ProductController extends FOSRestController
      * )
      */
     public function listAction(PaginateProductsHandler $handler)
+    {
+       return $handler->handle();
+    }  
+
+    /**
+     * @Rest\Post("/search", name="search_product")
+     *
+     * @Rest\View(StatusCode = 200)
+     */
+    public function searchAction(SearchHandler $handler)
     {
        return $handler->handle();
     }  
