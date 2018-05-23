@@ -15,7 +15,7 @@ class PaginateProductsHandler
     private $manager;
 
     /**
-     * RequestHandler constructor.
+     * PaginateProductsHandler constructor.
      * @param EntityManagerInterface $manager
      */
     public function __construct(EntityManagerInterface $manager)

@@ -15,7 +15,7 @@ class PaginateUsersHandler
     private $manager;
 
     /**
-     * RequestHandler constructor.
+     * PaginateUserHandler constructor.
      * @param EntityManagerInterface $manager
      */
     public function __construct(EntityManagerInterface $manager)

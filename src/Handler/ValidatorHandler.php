@@ -16,9 +16,15 @@ class ValidatorHandler extends CreateRequestHandler
 
     private $requestStack;
 
-	public function __construct(RequestStack $requestStack, EntityManagerInterface $manager, TokenStorageInterface $tokenStorage)
+    /**
+     * ValidatorHandler constructor.
+     * @param EntityManagerInterface $manager
+     * @param TokenStorageInterface $tokenStorage
+     * @param RequestStack $requestStack
+     */
+	public function __construct(EntityManagerInterface $manager, TokenStorageInterface $tokenStorage, RequestStack $requestStack)
     {
-        parent::__construct($manager, $tokenStorage);
+        parent::__construct($manager, $tokenStorage, $requestStack);
         $this->requestStack = $requestStack;
     }
 
@@ -33,13 +39,10 @@ class ValidatorHandler extends CreateRequestHandler
 
         $constraint = new Assert\Collection(array(
         // the keys correspond to the keys in the input array
-        'email' => new Assert\Email(),
+        'email' => new Assert\NotBlank(),
         'lastname' => new Assert\NotBlank(),
         'firstname' => new Assert\NotBlank(),
         ));
-
-        
-        /*$jsonData = $request->request->all();*/
 
         $validator = Validation::createValidator();        
         $violations = $validator->validate($array, $constraint);

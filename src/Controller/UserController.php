@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Handler\PaginateUsersHandler;
 use App\Handler\CreateRequestHandler;
-use App\Handler\UpdateRequestHandler;
 use App\Handler\DeleteHandler;
 use App\Handler\ValidatorHandler;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,9 +14,6 @@ use FOS\RestBundle\Controller\Annotations\View;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Validator\ConstraintViolationList;
 use Swagger\Annotations as SWG;
 
 class UserController extends FOSRestController
@@ -137,8 +133,6 @@ class UserController extends FOSRestController
      * )
      * @Rest\View(StatusCode = 201)
      * @ParamConverter(
-     *      "updateUser",
-     *       converter="fos_rest.request_body",
      *       options={
      *          "validator"={ "groups"="Update" }
      *      }
@@ -170,9 +164,9 @@ class UserController extends FOSRestController
      *     ) 
      * )
      */
-    public function updateAction(User $user, User $updateUser, ConstraintViolationList $violations, UpdateRequestHandler $handler)
+    public function updateAction(User $user, ValidatorHandler $handler)
     {
-        return $handler->handle($user, $updateUser, $violations);
+        return $handler->handleUpdate($user);
     }
 
     /**

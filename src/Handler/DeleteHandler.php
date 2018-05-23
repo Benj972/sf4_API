@@ -14,7 +14,7 @@ class DeleteHandler
     private $manager;
 
     /**
-     * RequestHandler constructor.
+     * DeleteHandler constructor.
      * @param EntityManagerInterface $manager
      */
     public function __construct(EntityManagerInterface $manager)
