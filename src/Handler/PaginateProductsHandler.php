@@ -37,8 +37,12 @@ class PaginateProductsHandler
         $path= $request->getPathInfo();
 
         if (in_array($path, array('', '/products'))) {
-                
-            $products = $this->manager->getRepository(Product::class)->findAll();
+            $page = $request->query->get('page', 1); 
+            $products = $this->manager->getRepository(Product::class)->getProducts($page);
+            $limit = $request->query->get('limit', 4);
+            $offset = ($page - 1) * $limit;
+            $numberOfPages = (int) ceil(count($products) / $limit);
+
             $paginatedCollection = new PaginatedRepresentation(
             new CollectionRepresentation(
                 $products,
@@ -47,9 +51,9 @@ class PaginateProductsHandler
             ),
             'app_product_list', // route
             array(), // route parameters
-            1,       // page number
-            20,      // limit
-            4       // total pages
+            $page,       // page number
+            $limit,      // limit
+            $numberOfPages       // total pages
             );
 
             return $paginatedCollection;
