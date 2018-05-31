@@ -15,7 +15,8 @@
         <env name="APP_SECRET" value="s$cretf0rt3st" />
         <env name="SHELL_VERBOSITY" value="-1" />
        <!--<env name="TEST_BASE_URL" value="http://localhost:8000" />-->
-        <!--<env name="DATABASE_URL" value="mysql://USERNAME:PASSWORD@127.0.0.1/DB_NAME" />-->
+        <!--<env name=
+        "DATABASE_URL" value="mysql://USERNAME:PASSWORD@127.0.0.1/DB_NAME" />-->
         <!-- define your env variables for the test env here -->
 
         <!-- ###+ lexik/jwt-authentication-bundle ### -->
@@ -28,7 +29,8 @@
 
     <testsuites>
         <testsuite name="Project Test Suite">
-            <directory>tests</directory>
+            <!--<directory>tests/testsTest.php</directory>-->
+            <directory>tests/ProductControllerTest.php</directory>
         </testsuite>
     </testsuites>
 
