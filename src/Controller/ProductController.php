@@ -51,9 +51,9 @@ class ProductController extends FOSRestController
     {
     	return $product;
     }
-
+    
     /**
-     * @Rest\Get("/products", name="app_product_list")
+     * @Rest\Get("/products/{name}", name="app_product_list", defaults = {"name" = ""}, requirements = {"name" = ".*"})
      *
      * @Rest\View(StatusCode = 200)
      * @SWG\Get(
