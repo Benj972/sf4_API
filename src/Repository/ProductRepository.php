@@ -23,19 +23,20 @@ class ProductRepository extends ServiceEntityRepository
         return $results;
     }
 
-    public function getProducts($page)
+    public function getProducts($page, $name)
     {
-        $query = $this->createQueryBuilder('p')
-            ->getQuery()
-        ;
+        $query = $this->createQueryBuilder('p');
+        if ($name){
+            $query->where("p.name LIKE :name")->setParameter('name', '%' . $name . '%');
+        }
+
         $query
-            // On définit l'annonce à partir de laquelle commencer la liste
+            // We define the announcement from which to start the list
             ->setFirstResult((($page<1 ? 1 : $page)-1) * 4)
-            // Ainsi que le nombre d'annonce à afficher sur une page
+            // As well as the number of ads to display on one page
             ->setMaxResults(4)
         ;
-        // Enfin, on retourne l'objet Paginator correspondant à la requête construite
-        // (n'oubliez pas le use correspondant en début de fichier)
+        // Finally, we return the Paginator object corresponding to the constructed query
         return new Paginator($query, true);
     }
 }
