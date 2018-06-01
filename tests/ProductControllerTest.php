@@ -39,7 +39,6 @@ class ProductControllerTest extends WebTestCase
         );
 
         $data = json_decode($client->getResponse()->getContent(), true);
-  
         $client = static::createClient();
         $client->setServerParameter('HTTP_Authorization', sprintf('Bearer %s', $data["token"]));
 
@@ -47,29 +46,34 @@ class ProductControllerTest extends WebTestCase
     }
 
 
-    /*public function setUp()
+    public function setUp()
     {
-        $this->client = static::createClient(array(), array(
-        'PHP_AUTH_USER' => 'admin@example.com',
-        'PHP_AUTH_PW'   => 'admin',
-        ));
-
         $this->secondClient = static::createClient();
-    }*/
+    }
 
-    /*public function testGetProductWithoutToken()
+    public function testGetProductWithoutToken()
     {
         $crawler = $this->secondClient->request('GET', '/products');
         $this->assertSame(401, $this->secondClient->getResponse()->getStatusCode());
-    }*/
+    }
 
-    /*public function testGetProductWithToken()
+    public function testGetProductWithToken()
     {
         $client = $this->createAuthenticatedClient();
-        $client->request('GET', '/products');
+        $crawler = $client->request('GET', '/products');
+        $this->assertSame(200, $client->getResponse()->getStatusCode());     
+    } 
 
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
-    } */ 
+    public function testGetProductbyNameWithToken()
+    {
+        $client = $this->createAuthenticatedClient();
+        $name = [
+            'name' => 'test',
+        ];
+        $crawler = $client->request('GET', '/products', $name);
+        $this->assertSame(200, $client->getResponse()->getStatusCode());     
+    } 
+
 
     /*public function testGetOneProductWithToken()
 
