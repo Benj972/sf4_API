@@ -9,8 +9,6 @@ use Lexik\Bundle\JWTAuthenticationBundle\Response\JWTAuthenticationSuccessRespon
 
 class SecurityControllerTest extends WebTestCase
 {
-    public static $client;
-
     public function testPOSTCreateToken()
     {
         
