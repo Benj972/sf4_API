@@ -29,8 +29,9 @@
 
     <testsuites>
         <testsuite name="Project Test Suite">
-            <!--<directory>tests/testsTest.php</directory>-->
             <directory>tests/ProductControllerTest.php</directory>
+            <directory>tests/UserControllerTest.php</directory>
+            <directory>tests/SecurityControllerTest.php</directory>
         </testsuite>
     </testsuites>
 
