@@ -9,41 +9,25 @@ use Lexik\Bundle\JWTAuthenticationBundle\Response\JWTAuthenticationSuccessRespon
 
 class SecurityControllerTest extends WebTestCase
 {
-    /*public static $client;
+    public static $client;
 
     public function testPOSTCreateToken()
     {
-        static::$client = static::createClient();
-        $response = static::$client->request('POST','/api/login_check', [
-            'auth' => ['admin@example.com', 'admin']
-        ]);
-
-        $this->assertSame(200, static::$client->getResponse()->getStatusCode());
-        $this->asserter()->assertResponsePropertyExists(
-            $response,
-            'token'
+        
+        $client = static::createClient();
+        $crawler = $client->request(
+            'POST',
+            '/api/login_check',
+            array(
+            '_username' => 'admin@example.com',
+            '_password' => 'admin',
+        )
         );
-    }
 
-    public function testGetToken()
-    {
-        static::$client = static::createClient();
-        static::$client->request('POST', 'api/login_check', ['_username' => 'admin@example.com', '_password' => 'admin']);
-        $response = static::$client->getResponse();
-        $this->assertInstanceOf(JWTAuthenticationSuccessResponse::class, $response);
-        $this->assertTrue($response->isSuccessful());
-        $body = json_decode($response->getContent(), true);
-        $this->assertArrayHasKey('token', $body, 'The response should have a "token" key containing a JWT Token.');
-
-        $data =
-        [
-            "_username" => "admin@example.com",
-            "_password" => "admin"
-        ];
-
-        static::$client->request('POST', '/api/login_check', (array) json_encode($data), [], ['CONTENT_TYPE' => 'application/json']);
-        $response = static::$client->getResponse();
-        $this->assertInstanceOf(JWTAuthenticationSuccessResponse::class, $response);
-    }*/
-
+        $this->assertSame(200, $client->getResponse()->getStatusCode());
+        $body = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('token', $body);
+        $this->assertInstanceOf(JWTAuthenticationSuccessResponse::class, $client->getResponse());
+        $this->assertTrue($client->getResponse()->isSuccessful());
+    } 
 }

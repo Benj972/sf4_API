@@ -3,26 +3,11 @@ namespace tests;
 
 use App\Controller\ProductController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use App\Product;
 use Symfony\Component\DomCrawler\Crawler;
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
-use JMS\Serializer\Annotation as Serializer;
-use JMS\Serializer\Annotation\ExclusionPolicy;
-use JMS\Serializer\Annotation\Expose;
-use Hateoas\Configuration\Annotation as Hateoas;
-use Symfony\Bundle\FrameworkBundle\Client;
-use Symfony\Component\Filesystem\Filesystem;
-use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;
-use Lexik\Bundle\JWTAuthenticationBundle\Events;
-use Lexik\Bundle\JWTAuthenticationBundle\Response\JWTAuthenticationSuccessResponse;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class ProductControllerTest extends WebTestCase
 {
@@ -68,16 +53,58 @@ class ProductControllerTest extends WebTestCase
     {
         $client = $this->createAuthenticatedClient();
         $name = [
-            'name' => 'test',
+            'name' => 'phone',
         ];
         $crawler = $client->request('GET', '/products', $name);
-        $this->assertSame(200, $client->getResponse()->getStatusCode());     
+        $this->assertSame(200, $client->getResponse()->getStatusCode()); 
+        $body = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('pages', $body);
+        $this->assertContains(4, $body);
     } 
 
 
-    /*public function testGetOneProductWithToken()
+    public function testGetOneProductWithToken()
+    {
+        $client = $this->createAuthenticatedClient();
+        $crawler = $client->request('GET', '/products/13');
+        
+        $this->assertSame(200, $client->getResponse()->getStatusCode());  
+
+        $body = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('name', $body);   
+    } 
 
     public function testGetOneProductWithoutToken()
+    {
+        $crawler = $this->secondClient->request('GET', '/products/13');
+        $this->assertSame(401, $this->secondClient->getResponse()->getStatusCode());
+    }
 
-    public function testGetSearchProduct()  */
+    public function testGetSearchProduct()  
+    {
+         $client = $this->createAuthenticatedClient();
+         $crawler = $client->request(
+            'POST',
+            '/search',
+            array(
+            'name' => 'phone',
+        )
+        );
+
+        $this->assertSame(200, $client->getResponse()->getStatusCode());
+    }
+
+    public function testGetSearchFalseProduct()  
+    {
+         $client = $this->createAuthenticatedClient();
+         $crawler = $client->request(
+            'POST',
+            '/search',
+            array(
+            'name' => 'test',
+        )
+        );
+
+        $this->assertSame(400, $client->getResponse()->getStatusCode());
+    }
 }

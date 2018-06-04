@@ -1,30 +1,16 @@
 <?php
 namespace tests;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\Tests\Server;
 use App\Controller\UserController;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
 use App\Entity\User;
-use App\Handler\PaginateUsersHandler;
-use App\Handler\CreateRequestHandler;
-use App\Handler\DeleteHandler;
-use App\Handler\ValidatorHandler;
-use Symfony\Component\Routing\Annotation\Route;
-use FOS\RestBundle\Controller\FOSRestController;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Controller\Annotations\View;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-/*use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;*/
-use Swagger\Annotations as SWG;
-
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserControllerTest extends WebTestCase
 {
-    /*protected function createAuthenticatedClient($username = 'admin@example.com', $password = 'admin')
+    protected function createAuthenticatedClient($username = 'admin@example.com', $password = 'admin')
     {
         $client = static::createClient();
         $client->request(
@@ -47,11 +33,6 @@ class UserControllerTest extends WebTestCase
 
     public function setUp()
     {
-        $this->client = static::createClient(array(), array(
-        'PHP_AUTH_USER' => 'admin@example.com',
-        'PHP_AUTH_PW'   => 'admin',
-        ));
-
         $this->secondClient = static::createClient();
     }
 
@@ -63,36 +44,61 @@ class UserControllerTest extends WebTestCase
 
     public function testGetUserWithToken()
     {
-        
+        $client = $this->createAuthenticatedClient();
+        $crawler = $client->request('GET', '/users');
+        $this->assertSame(200, $client->getResponse()->getStatusCode());
     }  
 
     public function testGetOneUserWithToken()
-    {}
+    {
+        $client = $this->createAuthenticatedClient();
+        $crawler = $client->request('GET', '/users/5');
+        $this->assertSame(200, $client->getResponse()->getStatusCode());   
+    } 
+
     public function testGetOneUserWithoutToken()
-    {}
+    {
+        $crawler = $this->secondClient->request('GET', '/users/5');
+        $this->assertSame(401, $this->secondClient->getResponse()->getStatusCode());  
+    }
+
     public function testDeleteUser()
     {
-        $response = $this->client->delete('/users/{id}');
-
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->createAuthenticatedClient();
+        $response = $client->request('DELETE', '/users/50');
+        $this->assertEquals(204, $client->getResponse()->getStatusCode());
     }
-*/
-    /*public function testCreateUser()
+
+    public function testCreateUser()
     {
-        $client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost:8000/']);
+        $client = $this->createAuthenticatedClient();
 
-        $data = array(
-        'email' => 'test@hotmail.fr',
-        'lastname' => 'testlastname',
-        'firstname' => 'testfirtsname',
-        );
+        $data =
+        '
+        {
+            "email": "test61@hotmail.fr",
+            "lastname": "testlastname61",
+            "firstname":"testfirstanme61"
+        }
+        ';
+        $crawler = $client->request('POST', '/users', (array) json_decode($data), [], ['CONTENT_TYPE' => 'application/json']);
+        $this->assertSame(201, $client->getResponse()->getStatusCode());
+    }
 
-        $request = $client->post('/users', null, json_encode($data));
-        $response = $request->send();
+    public function testUpdateUser()
+    {
+        $client = $this->createAuthenticatedClient();
 
-        $this->assertEquals(201, $response->getStatusCode());
-        $this->assertTrue($response->hasHeader('content-type'));
-        $data = json_decode($response->getBody(true), true);
-        $this->assertArrayHasKey('test@hotmail.fr', $data);
-    }*/
+        $data =
+        '
+        {
+            "email": "test4@hotmail.fr",
+            "lastname": "testlastname",
+            "firstname":"testfirstanme"
+        }
+        ';
+
+        $crawler = $client->request('PUT', '/users/5', (array) json_decode($data), [], ['CONTENT_TYPE' => 'application/json']); 
+        $this->assertSame(201, $client->getResponse()->getStatusCode());
+    }
 }
