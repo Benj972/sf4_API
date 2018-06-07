@@ -32,6 +32,8 @@
             <directory>tests/ProductControllerTest.php</directory>
             <directory>tests/UserControllerTest.php</directory>
             <directory>tests/SecurityControllerTest.php</directory>
+            <directory>tests/Unitary/UserControllerTest.php</directory>
+            <directory>tests/Unitary/ProductControllerTest.php</directory>
         </testsuite>
     </testsuites>
 
