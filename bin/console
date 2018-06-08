@@ -37,3 +37,16 @@ if ($debug) {
 $kernel = new Kernel($env, $debug);
 $application = new Application($kernel);
 $application->run($input);
+
+if (isset($_SERVER['REQUEST_URI'])) {
+    // let's create a client
+    $blackfire = new \Blackfire\Client();
+    // then start the probe
+    $probe = $blackfire->createProbe();
+
+    // When runtime shuts down, let's finish the profiling session
+    register_shutdown_function(function () use ($blackfire, $probe) {
+        // See the PHP SDK documentation for using the $profile object
+        $profile = $blackfire->endProbe($probe);
+    });
+}
