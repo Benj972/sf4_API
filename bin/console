@@ -6,10 +6,24 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Debug\Debug;
 use Symfony\Component\Dotenv\Dotenv;
+use Blackfire\Client;
 
 set_time_limit(0);
 
 require __DIR__.'/../vendor/autoload.php';
+
+if (isset($_SERVER['HTTP_BLACKFIRETRIGGER'])) {
+    // let's create a client
+    $blackfire = new \Blackfire\Client();
+    // then start the probe
+    $probe = $blackfire->createProbe();
+
+    // When runtime shuts down, let's finish the profiling session
+    register_shutdown_function(function () use ($blackfire, $probe) {
+        // See the PHP SDK documentation for using the $profile object
+        $profile = $blackfire->endProbe($probe);
+    });
+}
 
 if (!class_exists(Application::class)) {
     throw new \RuntimeException('You need to add "symfony/framework-bundle" as a Composer dependency.');
@@ -37,16 +51,3 @@ if ($debug) {
 $kernel = new Kernel($env, $debug);
 $application = new Application($kernel);
 $application->run($input);
-
-if (isset($_SERVER['HTTP_CONTENT_TYPE'])) {
-    // let's create a client
-    $blackfire = new \Blackfire\Client();
-    // then start the probe
-    $probe = $blackfire->createProbe();
-
-    // When runtime shuts down, let's finish the profiling session
-    register_shutdown_function(function () use ($blackfire, $probe) {
-        // See the PHP SDK documentation for using the $profile object
-        $profile = $blackfire->endProbe($probe);
-    });
-}
