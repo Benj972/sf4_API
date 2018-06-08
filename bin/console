@@ -38,7 +38,7 @@ $kernel = new Kernel($env, $debug);
 $application = new Application($kernel);
 $application->run($input);
 
-if (isset($_SERVER['REQUEST_URI'])) {
+if (isset($_SERVER['HTTP_CONTENT_TYPE'])) {
     // let's create a client
     $blackfire = new \Blackfire\Client();
     // then start the probe
