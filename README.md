@@ -4,6 +4,7 @@ BileMo API REST
 This repository is the project 7 "BileMo" in course Php Symfony Web Developer with [OpenClassrooms](https://openclassrooms.com).
 
 Version 1.0.0
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/daa9272cd8c74a2c887f2f2344c7add8)](https://www.codacy.com/app/Benj972/sf4_API?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Benj972/sf4_API&amp;utm_campaign=Badge_Grade)
 
 This project is a REST API for Bilemo to allow clients to display their mobile phones catalog. This API was built with Symfony 4.
 https://github.com/Benj972/sf4_API
@@ -29,17 +30,18 @@ This project uses:
 * [BazingaHateoasBundle](https://github.com/willdurand/BazingaHateoasBundle)
 * [LexikJWTAuthenticationBundle](https://github.com/lexik/LexikJWTAuthenticationBundle)
 * [FOSHttpCacheBundle](https://github.com/FriendsOfSymfony/FOSHttpCacheBundle)
+
 Those dependencies are included in composer.json.
 
 Installation:
 -------------
 1. To be placed in the folder
-2. Recover Repository: git clone https://github.com/Benj972/sf4_API.git
-3. Install Composer: php -r "eval('?>'.file_get_contents('https://getcomposer.org/download/'));"
-4. Update Library : php composer.phar update
-5. Create database: php bin/console doctrine:database:create 
-6. Update database: php bin/console doctrine:schema:update --force
-7. Load database: php bin/console doctrine:fixtures:load
+2. Recover Repository: `git clone https://github.com/Benj972/sf4_API.git`
+3. Install Composer: `php -r "eval('?>'.file_get_contents('https://getcomposer.org/download/'));"`
+4. Update Library : `php composer.phar update`
+5. Create database: `php bin/console doctrine:database:create`
+6. Update database: `php bin/console doctrine:schema:update --force`
+7. Load database: `php bin/console doctrine:fixtures:load`
 
 This API is ready!
 
@@ -47,9 +49,9 @@ Authentication:
 ---------------
 This API is restricted to Bilemo client.
 
-To test API, you can create a client with the command 'php bin/console demo:load client'
+To test API, you can create a client with the command `php bin/console demo:load client`
 
-Set Content-Type: application / json in your request header and do POST request on api/login_check with those JSON parameters in request body:
+Set `Content-Type: application/json` in your request header and do POST request on `api/login_check` with those JSON parameters in request body:
 
 
     {
@@ -57,9 +59,9 @@ Set Content-Type: application / json in your request header and do POST request 
     	"_password": "admintest"
     }
 
-You will get a token. You can now access API by setting these parameters in each request header of type 'Authorization' with value 'Bearer token'.
+You will get a token. You can now access API by setting these parameters in each request header of type `Authorization :Bearer token`.
 
 Documentation:
 --------------
-* This API project is documented you find it with request api/doc.
-* You can also look at the diagrams.
+* This API project is documented you find it with request `api/doc`.
+* You can also look at the [Diagrams](https://github.com/Benj972/sf4_API/tree/refactoring/diagram).
