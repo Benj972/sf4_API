@@ -47,12 +47,13 @@ class ClientCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $client = $input->getArgument('client');
-        if ($client) {      
+        $text = strtoupper("Bad Command");
+
+        if ($client == true) {      
             $this->load();
-            $text = strtoupper("Client OK");
-        } else {
-            $text = strtoupper("Bad Command");
-        }
+            $text = strtoupper("Client OK"); 
+        } 
+
         $output->writeln($text);
     }
 }

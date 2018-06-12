@@ -13,7 +13,9 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class ValidatorHandler extends CreateRequestHandler
 {	
-
+    /**
+     * @var RequestStack
+     */ 
     private $requestStack;
 
     /**
@@ -44,7 +46,7 @@ class ValidatorHandler extends CreateRequestHandler
         'firstname' => new Assert\NotBlank(),
         ));
 
-        $validator = Validation::createValidator();        
+        $validator = Validation::createValidator();  
         $violations = $validator->validate($array, $constraint);
 
         if (count($violations)>0) {
