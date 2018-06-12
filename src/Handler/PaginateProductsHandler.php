@@ -37,7 +37,6 @@ class PaginateProductsHandler
         $page = $request->query->get('page', 1); 
         $products = $this->manager->getRepository(Product::class)->getProducts($page, $request->query->get('name'));
         $limit = $request->query->get('limit', 4);
-        $offset = ($page - 1) * $limit;
         $numberOfPages = (int) ceil(count($products) / $limit);
 
         $paginatedCollection = new PaginatedRepresentation(

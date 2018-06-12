@@ -16,8 +16,8 @@ class ProductRepository extends ServiceEntityRepository
 
     public function getProduct($name)
     {
-        $em = $this->getEntityManager();    
-        $query = $em->createQuery("SELECT p FROM App\Entity\Product p WHERE p.name LIKE '%$name%' ");
+        $manager = $this->getEntityManager();    
+        $query = $manager->createQuery("SELECT p FROM App\Entity\Product p WHERE p.name LIKE '%$name%' ");
         $results = $query->getResult();
         //search product by keyword 
         return $results;
