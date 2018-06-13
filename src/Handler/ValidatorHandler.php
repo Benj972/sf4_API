@@ -35,9 +35,18 @@ class ValidatorHandler extends CreateRequestHandler
 
         $constraint = new Assert\Collection(array(
         // the keys correspond to the keys in the input array
-        'email' => new Assert\NotBlank(),
-        'lastname' => new Assert\NotBlank(),
-        'firstname' => new Assert\NotBlank(),
+            'email' => array(
+                new Assert\NotBlank(), 
+                new Assert\Email(),
+            ), 
+            'lastname' => array(
+                new Assert\NotBlank(),
+                new Assert\Length(array('min' => 2, 'max' => 20)),
+            ),
+            'firstname' => array(
+                new Assert\NotBlank(),
+                new Assert\Length(array('min' => 2, 'max' => 20)),
+            ),
         ));
 
         $validator = Validation::createValidator();  
