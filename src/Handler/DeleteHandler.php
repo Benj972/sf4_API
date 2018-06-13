@@ -3,8 +3,6 @@
 namespace App\Handler;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class DeleteHandler 
 {

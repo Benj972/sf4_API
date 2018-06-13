@@ -7,7 +7,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Hateoas\Representation\PaginatedRepresentation;
 use Hateoas\Representation\CollectionRepresentation;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class PaginateProductsHandler
 {
@@ -24,6 +23,7 @@ class PaginateProductsHandler
     /**
      * PaginateProductsHandler constructor.
      * @param EntityManagerInterface $manager
+     * @param RequestStack $requestStack
      */
     public function __construct(EntityManagerInterface $manager, RequestStack $requestStack)
     {

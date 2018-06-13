@@ -23,6 +23,7 @@ class PaginateUsersHandler
     /**
      * PaginateUserHandler constructor.
      * @param EntityManagerInterface $manager
+     * @param RequestStack $requestStack
      */
     public function __construct(EntityManagerInterface $manager, RequestStack $requestStack)
     {

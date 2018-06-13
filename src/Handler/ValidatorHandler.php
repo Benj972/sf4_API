@@ -3,21 +3,15 @@
 namespace App\Handler;
 
 use App\Handler\CreateRequestHandler;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class ValidatorHandler extends CreateRequestHandler
 {	
-    /**
-     * @var RequestStack
-     */ 
-    private $requestStack;
-
     /**
      * ValidatorHandler constructor.
      * @param EntityManagerInterface $manager
