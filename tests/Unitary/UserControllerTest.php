@@ -4,31 +4,33 @@ namespace tests\Unitary;
 use PHPUnit\Framework\TestCase;
 use App\Controller\UserController;
 use App\Entity\User;
-use Symfony\Component\HttpFoundation\Response;
 
 class UserControllerTest extends TestCase
 {
 	public function testCreateAction()
     {
-    	$response = new Response;
-
-    	$validatorHandler = $this
+        $validatorHandler = $this
             ->getMockBuilder('App\Handler\ValidatorHandler')
             ->disableOriginalConstructor()
             ->setMethods(['handle'])
             ->getMock();
 
         $validatorHandler
+            ->expects($this->exactly(2))
             ->method('handle')
-            ->willReturn($response);
+            ->willReturn(new User());
 
-        $this->assertSame(200, $response->getStatusCode());
+        $this->assertInstanceOf(User::class, $validatorHandler->handle(new User()));
+
+        $userController = new UserController();
+        
+        $user = $userController->createAction(new User(), $validatorHandler);
+
+        $this->assertEquals(new User(), $user);
     }  
 
     public function testUpdateAction()
     {
-    	$response = new Response;
-
     	$validatorHandler = $this
             ->getMockBuilder('App\Handler\ValidatorHandler')
             ->disableOriginalConstructor()
@@ -36,15 +38,25 @@ class UserControllerTest extends TestCase
             ->getMock();
 
         $validatorHandler
+            ->expects($this->exactly(2))
             ->method('handleUpdate')
-            ->willReturn($response);
+            ->willReturn(new User());
 
-        $this->assertSame(200, $response->getStatusCode());
+        $this->assertInstanceOf(User::class, $validatorHandler->handleUpdate(new User()));
+
+        $userController = new UserController();
+        
+        $user = $userController->updateAction(new User(), $validatorHandler);
+
+        $this->assertEquals(new User(), $user);
     }
 
     public function testListUserAction()
     {
-        $response = new Response;
+        $paginatedRepresentation = $this
+            ->getMockBuilder(PaginatedRepresentation::class)
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $paginateUsersHandler = $this
             ->getMockBuilder('App\Handler\PaginateUsersHandler')
@@ -53,16 +65,15 @@ class UserControllerTest extends TestCase
             ->getMock();
 
         $paginateUsersHandler
+            ->expects($this->once())
             ->method('handle')
-            ->willReturn($response);
+            ->willReturn($paginatedRepresentation);
 
-        $this->assertSame(200, $response->getStatusCode());
+        $this->assertInstanceOf(PaginatedRepresentation::class, $paginateUsersHandler->handle());
     }
 
     public function testDeleteAction()
     {
-        $response = new Response;
-
         $deleteHandler = $this
             ->getMockBuilder('App\Handler\DeleteHandler')
             ->disableOriginalConstructor()
@@ -70,9 +81,10 @@ class UserControllerTest extends TestCase
             ->getMock();
 
         $deleteHandler
+            ->expects($this->once())
             ->method('handle')
-            ->willReturn($response);
+            ->willReturn(NULL);
 
-        $this->assertSame(200, $response->getStatusCode());
+        $this->assertNull($deleteHandler->handle(new User()));
     }
 }
