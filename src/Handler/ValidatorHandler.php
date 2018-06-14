@@ -3,21 +3,15 @@
 namespace App\Handler;
 
 use App\Handler\CreateRequestHandler;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class ValidatorHandler extends CreateRequestHandler
 {	
-    /**
-     * @var RequestStack
-     */ 
-    private $requestStack;
-
     /**
      * ValidatorHandler constructor.
      * @param EntityManagerInterface $manager
@@ -41,9 +35,18 @@ class ValidatorHandler extends CreateRequestHandler
 
         $constraint = new Assert\Collection(array(
         // the keys correspond to the keys in the input array
-        'email' => new Assert\NotBlank(),
-        'lastname' => new Assert\NotBlank(),
-        'firstname' => new Assert\NotBlank(),
+            'email' => array(
+                new Assert\NotBlank(), 
+                new Assert\Email(),
+            ), 
+            'lastname' => array(
+                new Assert\NotBlank(),
+                new Assert\Length(array('min' => 2, 'max' => 20)),
+            ),
+            'firstname' => array(
+                new Assert\NotBlank(),
+                new Assert\Length(array('min' => 2, 'max' => 20)),
+            ),
         ));
 
         $validator = Validation::createValidator();  

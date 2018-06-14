@@ -117,7 +117,6 @@ class Product
 
     public function __construct()
     {
-        $this->images = new ArrayCollection();
         $this->configurations = new ArrayCollection();
         $this->dateCreate = new \Datetime();    
     }
