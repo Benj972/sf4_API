@@ -7081,8 +7081,6 @@
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
             "time": "2018-05-30T07:26:09+00:00"
-<<<<<<< HEAD
-=======
         },
         {
             "name": "theseer/tokenizer",
@@ -7123,7 +7121,6 @@
             ],
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",
             "time": "2017-04-07T12:08:54+00:00"
->>>>>>> a55ec62e80351cd57a332a6f8e8d0512fbcafc47
         },
         {
             "name": "twig/twig",
