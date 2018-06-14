@@ -234,13 +234,13 @@ class Product
         return $this;
     }
 
-    public function addConfiguration(Configuration $configuraton)
+    public function addConfiguration(Configuration $configuration)
     {
         $this->configurations[] = $configuration;
         $configuration->setProduct($this);
     }
 
-    public function removeConfiguration(Configuration $configuraton)
+    public function removeConfiguration(Configuration $configuration)
     {
         $this->configurations->removeElement($configuration);
         $configuration->setProduct(null);
