@@ -72,6 +72,18 @@ class Client implements UserInterface
         return $this->users;
     }
 
+    public function addUser(User $user)
+    {
+        $this->users[] = $user;
+        $user->setClient($this);
+    }
+
+    public function removeUser(User $user)
+    {
+        $this->users->removeElement($user);
+        $user->setClient(null);
+    }
+
     public function getRoles()
     {
         return ["ROLE_USER"];

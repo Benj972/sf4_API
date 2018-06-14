@@ -57,6 +57,11 @@ class Configuration
      */
     private $product;
 
+    public function __construct()
+    {
+        $this->images = new ArrayCollection();   
+    }
+
     public function getId()
     {
         return $this->id;
