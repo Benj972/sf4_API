@@ -3,7 +3,6 @@ namespace tests;
 
 use App\Controller\UserController;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\DomCrawler\Crawler;
 use App\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,34 +37,34 @@ class UserControllerTest extends WebTestCase
 
     public function testGetUserWithoutToken()
     {
-        $crawler = $this->secondClient->request('GET', '/users');
+        $this->secondClient->request('GET', '/users');
         $this->assertSame(401, $this->secondClient->getResponse()->getStatusCode());
     }
 
     public function testGetUserWithToken()
     {
         $client = $this->createAuthenticatedClient();
-        $crawler = $client->request('GET', '/users');
+        $client->request('GET', '/users');
         $this->assertSame(200, $client->getResponse()->getStatusCode());
     }  
 
     public function testGetOneUserWithToken()
     {
         $client = $this->createAuthenticatedClient();
-        $crawler = $client->request('GET', '/users/5');
+        $client->request('GET', '/users/5');
         $this->assertSame(200, $client->getResponse()->getStatusCode());   
     } 
 
     public function testGetOneUserWithoutToken()
     {
-        $crawler = $this->secondClient->request('GET', '/users/5');
+        $this->secondClient->request('GET', '/users/5');
         $this->assertSame(401, $this->secondClient->getResponse()->getStatusCode());  
     }
 
     public function testNegativeDeleteUser()
     {
         $client = $this->createAuthenticatedClient();
-        $response = $client->request('DELETE', '/users/150');
+        $client->request('DELETE', '/users/150');
         // id user is not good
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
@@ -74,7 +73,7 @@ class UserControllerTest extends WebTestCase
     {
         $client = $this->createAuthenticatedClient();
 
-        $crawler = $client->request('POST', '/users',[],[],['CONTENT_TYPE' => 'application/json'],json_encode([
+        $client->request('POST', '/users',[],[],['CONTENT_TYPE' => 'application/json'],json_encode([
             "email" => "test40@hotmail.fr",
             "lastname" => "testlastname40",
             "firstname" => "testfirstanme40"
@@ -98,7 +97,7 @@ class UserControllerTest extends WebTestCase
         }
         ';
 
-        $crawler = $client->request('PUT', '/users/5', (array) json_decode($data), [], ['CONTENT_TYPE' => 'application/json']); 
+        $client->request('PUT', '/users/5', (array) json_decode($data), [], ['CONTENT_TYPE' => 'application/json']); 
         $this->assertSame(201, $client->getResponse()->getStatusCode());
     }
 }

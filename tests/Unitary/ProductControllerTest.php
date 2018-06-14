@@ -10,23 +10,23 @@ class ProductControllerTest extends TestCase
 {
 	public function testListAction()
 	{
-        $paginatedRepresentation = $this
+        $pageRepresentation = $this
             ->getMockBuilder(PaginatedRepresentation::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $paginateProductsHandler = $this
+        $paginateProducts = $this
             ->getMockBuilder('App\Handler\PaginateProductsHandler')
             ->disableOriginalConstructor()
             ->setMethods(['handle'])
             ->getMock();
 
-        $paginateProductsHandler
+        $paginateProducts
             ->expects($this->once())
             ->method('handle')
-            ->willReturn($paginatedRepresentation);
-        /*echo print_r($paginateProductsHandler->handle());*/
-        $this->assertInstanceOf(PaginatedRepresentation::class, $paginateProductsHandler->handle());
+            ->willReturn($pageRepresentation);
+       
+        $this->assertInstanceOf(PaginatedRepresentation::class, $paginateProducts->handle());
 	}
 
 	public function testSearchAction()

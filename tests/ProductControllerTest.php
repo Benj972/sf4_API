@@ -7,7 +7,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use App\Product;
-use Symfony\Component\DomCrawler\Crawler;
 
 class ProductControllerTest extends WebTestCase
 {
@@ -38,14 +37,14 @@ class ProductControllerTest extends WebTestCase
 
     public function testGetProductWithoutToken()
     {
-        $crawler = $this->secondClient->request('GET', '/products');
+        $this->secondClient->request('GET', '/products');
         $this->assertSame(401, $this->secondClient->getResponse()->getStatusCode());
     }
 
     public function testGetProductWithToken()
     {
         $client = $this->createAuthenticatedClient();
-        $crawler = $client->request('GET', '/products');
+        $client->request('GET', '/products');
         $this->assertSame(200, $client->getResponse()->getStatusCode());     
     } 
 
@@ -55,7 +54,7 @@ class ProductControllerTest extends WebTestCase
         $name = [
             'name' => 'phone',
         ];
-        $crawler = $client->request('GET', '/products', $name);
+        $client->request('GET', '/products', $name);
         $this->assertSame(200, $client->getResponse()->getStatusCode()); 
         $body = json_decode($client->getResponse()->getContent(), true);
         $this->assertArrayHasKey('pages', $body);
@@ -66,7 +65,7 @@ class ProductControllerTest extends WebTestCase
     public function testGetOneProductWithToken()
     {
         $client = $this->createAuthenticatedClient();
-        $crawler = $client->request('GET', '/products/13');
+        $client->request('GET', '/products/13');
         
         $this->assertSame(200, $client->getResponse()->getStatusCode());  
 
@@ -76,14 +75,14 @@ class ProductControllerTest extends WebTestCase
 
     public function testGetOneProductWithoutToken()
     {
-        $crawler = $this->secondClient->request('GET', '/products/13');
+        $this->secondClient->request('GET', '/products/13');
         $this->assertSame(401, $this->secondClient->getResponse()->getStatusCode());
     }
 
     public function testGetSearchProduct()  
     {
-         $client = $this->createAuthenticatedClient();
-         $crawler = $client->request(
+        $client = $this->createAuthenticatedClient();
+        $client->request(
             'POST',
             '/search',
             array(
@@ -97,7 +96,7 @@ class ProductControllerTest extends WebTestCase
     public function testGetSearchFalseProduct()  
     {
          $client = $this->createAuthenticatedClient();
-         $crawler = $client->request(
+         $client->request(
             'POST',
             '/search',
             array(

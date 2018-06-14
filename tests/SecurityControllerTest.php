@@ -13,7 +13,7 @@ class SecurityControllerTest extends WebTestCase
     {
         
         $client = static::createClient();
-        $crawler = $client->request(
+        $client->request(
             'POST',
             '/api/login_check',
             array(

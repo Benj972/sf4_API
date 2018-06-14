@@ -53,23 +53,23 @@ class UserControllerTest extends TestCase
 
     public function testListUserAction()
     {
-        $paginatedRepresentation = $this
+        $pageRepresentation = $this
             ->getMockBuilder(PaginatedRepresentation::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $paginateUsersHandler = $this
+        $paginateUsers = $this
             ->getMockBuilder('App\Handler\PaginateUsersHandler')
             ->disableOriginalConstructor()
             ->setMethods(['handle'])
             ->getMock();
 
-        $paginateUsersHandler
+        $paginateUsers
             ->expects($this->once())
             ->method('handle')
-            ->willReturn($paginatedRepresentation);
+            ->willReturn($pageRepresentation);
 
-        $this->assertInstanceOf(PaginatedRepresentation::class, $paginateUsersHandler->handle());
+        $this->assertInstanceOf(PaginatedRepresentation::class, $paginateUsers->handle());
     }
 
     public function testDeleteAction()
