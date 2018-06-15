@@ -96,10 +96,7 @@ class UserController extends FOSRestController
      * @Rest\View(StatusCode = 201)
      * @ParamConverter(
      *      "user", 
-     *      converter="fos_rest.request_body",
-     *      options={
-     *          "validator"={ "groups"="Create" }
-     *      }
+     *      converter="fos_rest.request_body"
      * )
      * @SWG\Post(
      *     description="Create user",
@@ -132,11 +129,6 @@ class UserController extends FOSRestController
      *    name = "app_user_update"
      * )
      * @Rest\View(StatusCode = 201)
-     * @ParamConverter(
-     *       options={
-     *          "validator"={ "groups"="Update" }
-     *      }
-     * )
      * @SWG\Put(
      *     description="Update user",
      *     @SWG\Response(

@@ -77,7 +77,6 @@ class User
      *
      * @Expose
      * @Serializer\Since("1.0")
-     * @Assert\NotBlank(groups={"Create", "Update"})
      */
     private $email;
 
@@ -86,7 +85,6 @@ class User
      *
      * @Expose
      * @Serializer\Since("1.0")
-     * @Assert\NotBlank(groups={"Create", "Update"})
      */
     private $lastname;
 
@@ -95,7 +93,6 @@ class User
      *
      * @Expose
      * @Serializer\Since("1.0")
-     * @Assert\NotBlank(groups={"Create", "Update"})
      */
     private $firstname;
 
