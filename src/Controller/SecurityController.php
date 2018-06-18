@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Client;
 use Swagger\Annotations as SWG;
-use Nelmio\ApiDocBundle\Annotation\Model;
 
 class SecurityController 
 {
