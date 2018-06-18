@@ -255,5 +255,6 @@ Welcome to the BileMo API documentation
 
 ### Object
 | Name | Type | Description | Required |
+| ---- | ---- | ----------- | -------- |
 | _username | string |  | No |
 | _password | string |  | No |
