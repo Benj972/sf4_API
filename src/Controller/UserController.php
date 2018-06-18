@@ -20,12 +20,12 @@ use Nelmio\ApiDocBundle\Annotation\Model;
 class UserController extends FOSRestController
 {
     /**
-	 * @Rest\Get(
-	 *		path = "/users/{id}",
-	 *		name = "app_user_show",
-	 *		requirements = {"id"="\d+"}
-	 * )
-	 * @Rest\View(StatusCode = 200)
+	* @Rest\Get(
+	*		path = "/users/{id}",
+	*		name = "app_user_show",
+	*		requirements = {"id"="\d+"}
+	* )
+	* @Rest\View(StatusCode = 200)
      * @SWG\Get(    
      *     description="Get one user.",
      *     tags = {"User"},
@@ -61,13 +61,13 @@ class UserController extends FOSRestController
      *          description="Bearer Token",
      *     )
      * )
-	 */
+	*/
     public function viewAction(User $user)
 	{
 		return $user;
 	}
 
-	/**
+    /**
      * @Rest\Get(
      *     path = "/users",
      *     name = "app_user_list"
