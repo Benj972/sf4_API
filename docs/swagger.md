@@ -175,13 +175,13 @@ Welcome to the BileMo API documentation
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ---- |
-| Body | body | Use as login '_username: admin@example.com, _password: admintest' for test API | Yes | [ object ] |
+| Body | body | Use as login '_username: admin@example.com, _password: admintest' for test API | Yes | [ Login ](#login) |
 
 **Responses**
 
 | Code | Description | Schema |
 | ---- | ----------- | ------ |
-| 200 | Successful operation | [ object ](#object) |
+| 200 | Successful operation | [ Token ](#token) |
 | 400 | Bad Request: Method Not Allowed |  |
 | 401 | Unauthorized: Bad credentials |  |
 | 404 | Not Found: Invalid Route |  |
@@ -253,8 +253,13 @@ Welcome to the BileMo API documentation
 | id | integer |  | No |
 | url | string |  | No |
 
-### Object
+### Login
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
 | _username | string |  | No |
 | _password | string |  | No |
+
+### Token
+| Name | Type | Description | Required |
+| ---- | ---- | ----------- | -------- |
+| token | string |  | No |
