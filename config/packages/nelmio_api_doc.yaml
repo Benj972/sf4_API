@@ -4,6 +4,7 @@ nelmio_api_doc:
             - ^/products
             - ^/users
             - ^/search
+            - ^/api/login_check
     documentation:
         info:
             title: BileMo API
