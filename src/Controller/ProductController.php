@@ -10,6 +10,7 @@ use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\Annotations\View;
 use Swagger\Annotations as SWG;
+use Nelmio\ApiDocBundle\Annotation\Model;
 
 class ProductController extends FOSRestController
 {
@@ -19,20 +20,22 @@ class ProductController extends FOSRestController
      *     name = "app_product_show",
      *     requirements = {"id"="\d+"}
      * )
-     * @View(StatusCode = 200)
+     * @Rest\View(StatusCode = 200)
      * @SWG\Get(    
      *     description="Get one product.",
+     *     tags = {"Product"},
      *     @SWG\Response(
      *          response=200,
+     *          @Model(type=Product::class),
      *          description="successful operation",
      *     ),
      *     @SWG\Response(
      *         response="400",
-     *         description="No route found: Method Not Allowed",
+     *         description="Bad Request: Method Not Allowed",
      *     ),
      *     @SWG\Response(
      *         response="401",
-     *         description="Expired JWT Token/JWT Token not found",
+     *         description="Unauthorized: Expired JWT Token/JWT Token not found",
      *     ),
      *     @SWG\Response(
      *         response="404",
@@ -44,6 +47,13 @@ class ProductController extends FOSRestController
      *          in="path",
      *          type="integer",
      *          description="The product unique identifier.",
+     *     ),
+     *     @SWG\Parameter(
+     *          name="Authorization",
+     *          required= true,
+     *          in="header",
+     *          type="string",
+     *          description="Bearer Token",
      *     )
      * )
      */
@@ -53,27 +63,45 @@ class ProductController extends FOSRestController
     }
     
     /**
-     * @Rest\Get("/products/{name}", name="app_product_list", defaults = {"name" = ""}, requirements = {"name" = ".*"})
-     *
+     * @Rest\Get(
+     *     path = "/products",  
+     *     name="app_product_list"
+     * )
      * @Rest\View(StatusCode = 200)
      * @SWG\Get(
      *     description="Get the list of products.",
+     *     tags = {"Product"},
      *     @SWG\Response(
      *          response=200,
+     *          @Model(type=Product::class),
      *          description="successful operation",
      *     ),
      *     @SWG\Response(
      *         response="400",
-     *         description="No route found: Method Not Allowed",
+     *         description="Bad Request: Method Not Allowed",
      *     ),
      *     @SWG\Response(
      *         response="401",
-     *         description="Expired JWT Token/JWT Token not found",
+     *         description="Unauthorized: Expired JWT Token/JWT Token not found",
      *     ),
      *     @SWG\Response(
      *         response="404",
-     *         description="Invalid Route",
+     *         description="Not Found: Invalid Route",
      *     ), 
+     *     @SWG\Parameter(
+     *          name="name",
+     *          required= false,
+     *          in="query",
+     *          type="string",
+     *          description="Search product by name in list products",
+     *     ),
+     *     @SWG\Parameter(
+     *          name="Authorization",
+     *          required= true,
+     *          in="header",
+     *          type="string",
+     *          description="Bearer Token",
+     *     )
      * )
      */
     public function listAction(PaginateProductsHandler $handler)
@@ -85,6 +113,45 @@ class ProductController extends FOSRestController
      * @Rest\Post("/search", name="search_product")
      *
      * @Rest\View(StatusCode = 200)
+     * @SWG\Post(
+     *     description="Search product by Keyword.",
+     *     tags = {"Product"},
+     *     @SWG\Response(
+     *         response=201,
+     *         description="successful operation",
+     *         @Model(type=Product::class)
+     *     ),
+     *     @SWG\Response(
+     *         response=400,
+     *         description="Bad Request: Product is unavailable",
+     *     ),
+     *     @SWG\Response(
+     *         response="401",
+     *         description="Unauthorized: Expired JWT Token/JWT Token not found",
+     *     ),
+     *     @SWG\Response(
+     *         response="404",
+     *         description="Not Found: Invalid Route",
+     *     ), 
+     *     @SWG\Parameter(
+     *          name="Authorization",
+     *          required= true,
+     *          in="header",
+     *          type="string",
+     *          description="Bearer Token",
+     *     ),
+     *     @SWG\Parameter(
+     *          name="Body",
+     *          required= true,
+     *          in="body",
+     *          type="string",
+     *          description="Parameter name to add",
+     *          @SWG\Schema(
+     *              type="array",
+     *              @Model(type=Product::class, groups={"search_body"})
+     *          )
+     *      )
+     * )
      */
     public function searchAction(SearchHandler $handler)
     {

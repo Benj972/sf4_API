@@ -8,6 +8,9 @@ use JMS\Serializer\Annotation as Serializer;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use Hateoas\Configuration\Annotation as Hateoas;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Swagger\Annotations as SWG;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
@@ -49,6 +52,7 @@ class Product
      * @ORM\Column(type="string", length=255)
      * @Expose
      * @Serializer\Since("1.0")
+     * @Groups({"search_body"})
      */
     private $name;
 

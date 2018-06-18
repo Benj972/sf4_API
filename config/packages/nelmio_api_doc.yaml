@@ -1,6 +1,12 @@
 nelmio_api_doc:
     areas:
         path_patterns: # an array of regexps
-            - ^/api
             - ^/products
             - ^/users
+            - ^/search
+            - ^/api/login_check
+    documentation:
+        info:
+            title: BileMo API
+            description: Welcome to the BileMo API documentation
+            version: 1.0.0

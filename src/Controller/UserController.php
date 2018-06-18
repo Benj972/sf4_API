@@ -15,29 +15,32 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Swagger\Annotations as SWG;
+use Nelmio\ApiDocBundle\Annotation\Model;
 
 class UserController extends FOSRestController
 {
     /**
-	 * @Rest\Get(
-	 *		path = "/users/{id}",
-	 *		name = "app_user_show",
-	 *		requirements = {"id"="\d+"}
-	 * )
-	 * @Rest\View(StatusCode = 200)
+	* @Rest\Get(
+	*		path = "/users/{id}",
+	*		name = "app_user_show",
+	*		requirements = {"id"="\d+"}
+	* )
+	* @Rest\View(StatusCode = 200)
      * @SWG\Get(    
      *     description="Get one user.",
+     *     tags = {"User"},
      *     @SWG\Response(
      *          response=200,
-     *          description="successful operation",
+     *          @Model(type=User::class),
+     *          description="Successful operation",
      *     ),
      *     @SWG\Response(
      *         response="400",
-     *         description="No route found: Method Not Allowed",
+     *         description="Bad Request: Method Not Allowed",
      *     ),
      *     @SWG\Response(
      *         response="401",
-     *         description="Expired JWT Token/JWT Token not found",
+     *         description="Unauthorized: Expired JWT Token/JWT Token not found",
      *     ),
      *     @SWG\Response(
      *         response="404",
@@ -49,15 +52,22 @@ class UserController extends FOSRestController
      *          in="path",
      *          type="integer",
      *          description="The user unique identifier.",
+     *     ),
+     *     @SWG\Parameter(
+     *          name="Authorization",
+     *          required= true,
+     *          in="header",
+     *          type="string",
+     *          description="Bearer Token",
      *     )
      * )
-	 */
+	*/
     public function viewAction(User $user)
 	{
 		return $user;
 	}
 
-	/**
+    /**
      * @Rest\Get(
      *     path = "/users",
      *     name = "app_user_list"
@@ -65,22 +75,31 @@ class UserController extends FOSRestController
      * @Rest\View(StatusCode = 200)
      * @SWG\Get(
      *     description="Get the list of users.",
+     *     tags = {"User"},
      *     @SWG\Response(
      *          response=200,
-     *          description="successful operation",
+     *          @Model(type=User::class),
+     *          description="Successful operation",
      *     ),
      *     @SWG\Response(
      *         response="400",
-     *         description="No route found: Method Not Allowed",
+     *         description="Bad Request: Method Not Allowed",
      *     ),
      *     @SWG\Response(
      *         response="401",
-     *         description="Expired JWT Token/JWT Token not found",
+     *         description="Unauthorized: Expired JWT Token/JWT Token not found",
      *     ),
      *     @SWG\Response(
      *         response="404",
-     *         description="Invalid Route",
-     *     ), 
+     *         description="Not Found: Invalid Route",
+     *     ),
+     *     @SWG\Parameter(
+     *          name="Authorization",
+     *          required= true,
+     *          in="header",
+     *          type="string",
+     *          description="Bearer Token",
+     *     )
      * )
      */
     public function listUserAction(PaginateUsersHandler $handler)
@@ -100,22 +119,42 @@ class UserController extends FOSRestController
      * )
      * @SWG\Post(
      *     description="Create user",
+     *     tags = {"User"},
      *     @SWG\Response(
      *          response=201,
-     *          description="successful operation",
+     *          @Model(type=User::class),
+     *          description="Successful operation",
      *     ),
      *     @SWG\Response(
      *         response="400",
-     *         description="No route found: Method Not Allowed",
+     *         description="Bad Request: Method Not Allowed",
      *     ),
      *     @SWG\Response(
      *         response="401",
-     *         description="Expired JWT Token/JWT Token not found",
+     *         description="Unauthorized: Expired JWT Token/JWT Token not found",
      *     ),
      *     @SWG\Response(
      *         response="404",
-     *         description="Invalid Route",
+     *         description="Not Found: Invalid Route",
      *     ), 
+     *     @SWG\Parameter(
+     *          name="Authorization",
+     *          required= true,
+     *          in="header",
+     *          type="string",
+     *          description="Bearer Token",
+     *     ),
+     *     @SWG\Parameter(
+     *          name="Body",
+     *          required= true,
+     *          in="body",
+     *          type="string",
+     *          description="All property user to add",
+     *          @SWG\Schema(
+     *              type="array",
+     *              @Model(type=User::class, groups={"user"})
+     *          )
+     *      )
      * )
      */
     public function createAction(User $user, ValidatorHandler $handler)
@@ -131,17 +170,19 @@ class UserController extends FOSRestController
      * @Rest\View(StatusCode = 201)
      * @SWG\Put(
      *     description="Update user",
+     *     tags = {"User"},
      *     @SWG\Response(
      *          response=201,
-     *          description="successful operation",
+     *          @Model(type=User::class),
+     *          description="Successful operation",
      *     ),
      *     @SWG\Response(
      *         response="400",
-     *         description="No route found: Method Not Allowed",
+     *         description="Bad Request: Method Not Allowed",
      *     ),
      *     @SWG\Response(
      *         response="401",
-     *         description="Expired JWT Token/JWT Token not found",
+     *         description="Unauthorized: Expired JWT Token/JWT Token not found",
      *     ),
      *     @SWG\Response(
      *         response="404",
@@ -153,7 +194,25 @@ class UserController extends FOSRestController
      *          in="path",
      *          type="integer",
      *          description="The user unique identifier.",
-     *     ) 
+     *     ),
+     *     @SWG\Parameter(
+     *          name="Authorization",
+     *          required= true,
+     *          in="header",
+     *          type="string",
+     *          description="Bearer Token",
+     *     ),
+     *     @SWG\Parameter(
+     *          name="Body",
+     *          required= true,
+     *          in="body",
+     *          type="string",
+     *          description="Change one or all property user",
+     *          @SWG\Schema(
+     *              type="array",
+     *              @Model(type=User::class, groups={"user"})
+     *          )
+     *      ) 
      * )
      */
     public function updateAction(User $user, ValidatorHandler $handler)
@@ -173,17 +232,18 @@ class UserController extends FOSRestController
      * )
      * @SWG\Delete(
      *     description="Delete user",
+     *     tags = {"User"},
      *     @SWG\Response(
      *          response=204,
-     *          description="successful operation",
+     *          description="Successful operation",
      *     ),
      *     @SWG\Response(
      *         response="400",
-     *         description="No route found: Method Not Allowed",
+     *         description="Bad Request: Method Not Allowed",
      *     ),
      *     @SWG\Response(
      *         response="401",
-     *         description="Expired JWT Token/JWT Token not found",
+     *         description="Unauthorized: Expired JWT Token/JWT Token not found",
      *     ),
      *     @SWG\Response(
      *         response="404",
@@ -195,6 +255,13 @@ class UserController extends FOSRestController
      *          in="path",
      *          type="integer",
      *          description="The user unique identifier.",
+     *     ),
+     *     @SWG\Parameter(
+     *          name="Authorization",
+     *          required= true,
+     *          in="header",
+     *          type="string",
+     *          description="Bearer Token",
      *     ) 
      * )
      */
