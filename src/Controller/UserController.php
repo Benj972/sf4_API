@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Swagger\Annotations as SWG;
 use Nelmio\ApiDocBundle\Annotation\Model;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 
 class UserController extends FOSRestController
 {
@@ -26,6 +27,7 @@ class UserController extends FOSRestController
 	*		requirements = {"id"="\d+"}
 	* )
 	* @Rest\View(StatusCode = 200)
+     * @Cache(maxage="3600", public=true, mustRevalidate=true)
      * @SWG\Get(    
      *     description="Get one user.",
      *     tags = {"User"},
@@ -73,6 +75,7 @@ class UserController extends FOSRestController
      *     name = "app_user_list"
      * )
      * @Rest\View(StatusCode = 200)
+     * @Cache(maxage="3600", public=true, mustRevalidate=true)
      * @SWG\Get(
      *     description="Get the list of users.",
      *     tags = {"User"},

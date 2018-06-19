@@ -11,6 +11,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\Annotations\View;
 use Swagger\Annotations as SWG;
 use Nelmio\ApiDocBundle\Annotation\Model;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 
 class ProductController extends FOSRestController
 {
@@ -21,6 +22,7 @@ class ProductController extends FOSRestController
      *     requirements = {"id"="\d+"}
      * )
      * @Rest\View(StatusCode = 200)
+     * @Cache(maxage="3600", public=true, mustRevalidate=true)
      * @SWG\Get(    
      *     description="Get one product.",
      *     tags = {"Product"},
@@ -68,6 +70,7 @@ class ProductController extends FOSRestController
      *     name="app_product_list"
      * )
      * @Rest\View(StatusCode = 200)
+     * @Cache(maxage="3600", public=true, mustRevalidate=true)
      * @SWG\Get(
      *     description="Get the list of products.",
      *     tags = {"Product"},
