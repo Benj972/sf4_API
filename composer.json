@@ -6,6 +6,7 @@
         "ext-iconv": "*",
         "blackfire/php-sdk": "v1.14.1",
         "doctrine/doctrine-fixtures-bundle": "^3.0",
+        "friendsofphp/php-cs-fixer": "^2.12",
         "friendsofsymfony/rest-bundle": "^2.3",
         "guzzlehttp/guzzle": "^6.3",
         "jms/serializer-bundle": "^2.3",
