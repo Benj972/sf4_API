@@ -7,7 +7,6 @@ use JMS\Serializer\Annotation as Serializer;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use Hateoas\Configuration\Annotation as Hateoas;
-use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation\Groups;
 
 /**
@@ -60,7 +59,6 @@ use JMS\Serializer\Annotation\Groups;
  *          absolute = true
  *      )
  * )
- *
  */
 class User
 {

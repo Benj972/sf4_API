@@ -51,7 +51,7 @@ class Configuration
      */
     private $images;
 
-     /**
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="configurations", cascade={"persist"})
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      */
@@ -59,7 +59,7 @@ class Configuration
 
     public function __construct()
     {
-        $this->images = new ArrayCollection();   
+        $this->images = new ArrayCollection();
     }
 
     public function getId()
@@ -89,9 +89,9 @@ class Configuration
         $this->memory = $memory;
 
         return $this;
-    } 
+    }
 
-     public function getSerial(): ?string
+    public function getSerial(): ?string
     {
         return $this->serial;
     }
@@ -127,7 +127,7 @@ class Configuration
         $this->images->removeElement($image);
         $image->setProduct(null);
     }
-    
+
     public function getImages()
     {
         return $this->images;

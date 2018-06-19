@@ -35,7 +35,7 @@ class Client implements UserInterface
 
     public function __construct()
     {
-        $this->users = new ArrayCollection();    
+        $this->users = new ArrayCollection();
     }
 
     public function getId()
@@ -86,7 +86,7 @@ class Client implements UserInterface
 
     public function getRoles()
     {
-        return ["ROLE_USER"];
+        return ['ROLE_USER'];
     }
 
     public function getSalt()

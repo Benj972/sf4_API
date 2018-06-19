@@ -8,8 +8,6 @@ use JMS\Serializer\Annotation as Serializer;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use Hateoas\Configuration\Annotation as Hateoas;
-use Nelmio\ApiDocBundle\Annotation\Model;
-use Swagger\Annotations as SWG;
 use JMS\Serializer\Annotation\Groups;
 
 /**
@@ -35,7 +33,6 @@ use JMS\Serializer\Annotation\Groups;
  *          absolute = true
  *      )
  * )
- *
  */
 class Product
 {
@@ -104,7 +101,7 @@ class Product
      * @Serializer\Since("1.0")
      */
     private $autonomy;
-  
+
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Manufacturer", inversedBy="product", cascade={"persist"})
      * @Expose
@@ -122,7 +119,7 @@ class Product
     public function __construct()
     {
         $this->configurations = new ArrayCollection();
-        $this->dateCreate = new \Datetime();    
+        $this->dateCreate = new \Datetime();
     }
 
     public function getId()

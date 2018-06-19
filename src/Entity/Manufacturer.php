@@ -27,9 +27,9 @@ class Manufacturer
      */
     private $name;
 
-     /**
-    * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="manufacturer")
-    */
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="manufacturer")
+     */
     private $products;
 
     public function __construct()
@@ -66,7 +66,7 @@ class Manufacturer
         $this->products->removeElement($product);
         $product->setManufacturer(null);
     }
-    
+
     public function getProducts()
     {
         return $this->products;

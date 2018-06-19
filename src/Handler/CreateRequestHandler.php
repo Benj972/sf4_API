@@ -6,9 +6,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-abstract class CreateRequestHandler 
+abstract class CreateRequestHandler
 {
-	/**
+    /**
      * @var EntityManagerInterface
      */
     private $manager;
@@ -25,15 +25,16 @@ abstract class CreateRequestHandler
 
     /**
      * CreateRequestHandler constructor.
+     *
      * @param EntityManagerInterface $manager
-     * @param TokenStorageInterface $tokenStorage
-     * @param RequestStack $requestStack
+     * @param TokenStorageInterface  $tokenStorage
+     * @param RequestStack           $requestStack
      */
     public function __construct(EntityManagerInterface $manager, TokenStorageInterface $tokenStorage, RequestStack $requestStack)
     {
         $this->manager = $manager;
-    	$this->tokenStorage = $tokenStorage;
-        $this->requestStack = $requestStack;  
+        $this->tokenStorage = $tokenStorage;
+        $this->requestStack = $requestStack;
     }
 
     public function handle($user)
@@ -44,7 +45,6 @@ abstract class CreateRequestHandler
         $this->manager->flush();
 
         return $user;
-        
     }
 
     public function handleUpdate($user)
@@ -64,5 +64,5 @@ abstract class CreateRequestHandler
     /**
      * @return Response
      */
-    public abstract function validate();
+    abstract public function validate();
 }

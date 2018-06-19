@@ -8,14 +8,13 @@ use App\Handler\SearchHandler;
 use Symfony\Bundle\FrameworkExtraBundle\Configuration\Route;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Controller\Annotations\View;
 use Swagger\Annotations as SWG;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 
 class ProductController extends FOSRestController
 {
-     /**
+    /**
      * @Rest\Get(
      *     path = "/products/{id}",
      *     name = "app_product_show",
@@ -23,7 +22,7 @@ class ProductController extends FOSRestController
      * )
      * @Rest\View(StatusCode = 200)
      * @Cache(maxage="3600", public=true, mustRevalidate=true)
-     * @SWG\Get(    
+     * @SWG\Get(
      *     description="Get one product.",
      *     tags = {"Product"},
      *     @SWG\Response(
@@ -42,7 +41,7 @@ class ProductController extends FOSRestController
      *     @SWG\Response(
      *         response="404",
      *         description="Product object not found: Invalid ID supplied/Invalid Route",
-     *     ), 
+     *     ),
      *     @SWG\Parameter(
      *          name="id",
      *          required= true,
@@ -61,12 +60,12 @@ class ProductController extends FOSRestController
      */
     public function showAction(Product $product)
     {
-    	return $product;
+        return $product;
     }
-    
+
     /**
      * @Rest\Get(
-     *     path = "/products",  
+     *     path = "/products",
      *     name="app_product_list"
      * )
      * @Rest\View(StatusCode = 200)
@@ -90,7 +89,7 @@ class ProductController extends FOSRestController
      *     @SWG\Response(
      *         response="404",
      *         description="Not Found: Invalid Route",
-     *     ), 
+     *     ),
      *     @SWG\Parameter(
      *          name="name",
      *          required= false,
@@ -109,8 +108,8 @@ class ProductController extends FOSRestController
      */
     public function listAction(PaginateProductsHandler $handler)
     {
-       return $handler->handle();
-    }  
+        return $handler->handle();
+    }
 
     /**
      * @Rest\Post("/search", name="search_product")
@@ -135,7 +134,7 @@ class ProductController extends FOSRestController
      *     @SWG\Response(
      *         response="404",
      *         description="Not Found: Invalid Route",
-     *     ), 
+     *     ),
      *     @SWG\Parameter(
      *          name="Authorization",
      *          required= true,
@@ -158,6 +157,6 @@ class ProductController extends FOSRestController
      */
     public function searchAction(SearchHandler $handler)
     {
-       return $handler->handle();
-    }  
+        return $handler->handle();
+    }
 }

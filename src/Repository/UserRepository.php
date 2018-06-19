@@ -27,7 +27,7 @@ class UserRepository extends ServiceEntityRepository
         ;
         $query
             // We define the announcement from which to start the list
-            ->setFirstResult((($page<1 ? 1 : $page)-1) * 4)
+            ->setFirstResult((($page < 1 ? 1 : $page) - 1) * 4)
             // As well as the number of ads to display on one page
             ->setMaxResults(4)
         ;
