@@ -3,103 +3,109 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Handler\PaginateUsersHandler;
+use App\Handler\DeleteHandler;
+use App\Handler\ValidatorHandler;
 use Symfony\Component\Routing\Annotation\Route;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Controller\Annotations\View;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Hateoas\Representation\PaginatedRepresentation;
-use Hateoas\Representation\CollectionRepresentation;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Validator\ConstraintViolationList;
 use Swagger\Annotations as SWG;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 
 class UserController extends FOSRestController
 {
     /**
-	 * @Rest\Get(
-	 *		path = "/users/{id}",
-	 *		name = "app_user_show",
-	 *		requirements = {"id"="\d+"}
-	 * )
-	 * @Rest\View(StatusCode = 200)
-     * @SWG\Get(    
+     * @Rest\Get(
+     *      path = "/users/{id}",
+     *      name = "app_user_show",
+     *      requirements = {"id"="\d+"}
+     * )
+     * @Rest\View(StatusCode = 200)
+     * @Cache(maxage="3600", public=true, mustRevalidate=true)
+     * @SWG\Get(
      *     description="Get one user.",
+     *     tags = {"User"},
      *     @SWG\Response(
      *          response=200,
-     *          description="successful operation",
+     *          @Model(type=User::class),
+     *          description="Successful operation",
      *     ),
      *     @SWG\Response(
      *         response="400",
-     *         description="No route found: Method Not Allowed",
+     *         description="Bad Request: Method Not Allowed",
      *     ),
      *     @SWG\Response(
      *         response="401",
-     *         description="Expired JWT Token/JWT Token not found",
+     *         description="Unauthorized: Expired JWT Token/JWT Token not found",
      *     ),
      *     @SWG\Response(
      *         response="404",
      *         description="User object not found: Invalid ID supplied/Invalid Route",
-     *     ), 
+     *     ),
      *     @SWG\Parameter(
      *          name="id",
      *          required= true,
      *          in="path",
      *          type="integer",
      *          description="The user unique identifier.",
+     *     ),
+     *     @SWG\Parameter(
+     *          name="Authorization",
+     *          required= true,
+     *          in="header",
+     *          type="string",
+     *          description="Bearer Token",
      *     )
      * )
-	 */
+     */
     public function viewAction(User $user)
-	{
-		return $user;
-	}
+    {
+        return $user;
+    }
 
-	/**
+    /**
      * @Rest\Get(
      *     path = "/users",
      *     name = "app_user_list"
      * )
      * @Rest\View(StatusCode = 200)
+     * @Cache(maxage="3600", public=true, mustRevalidate=true)
      * @SWG\Get(
      *     description="Get the list of users.",
+     *     tags = {"User"},
      *     @SWG\Response(
      *          response=200,
-     *          description="successful operation",
+     *          @Model(type=User::class),
+     *          description="Successful operation",
      *     ),
      *     @SWG\Response(
      *         response="400",
-     *         description="No route found: Method Not Allowed",
+     *         description="Bad Request: Method Not Allowed",
      *     ),
      *     @SWG\Response(
      *         response="401",
-     *         description="Expired JWT Token/JWT Token not found",
+     *         description="Unauthorized: Expired JWT Token/JWT Token not found",
      *     ),
      *     @SWG\Response(
      *         response="404",
-     *         description="Invalid Route",
-     *     ), 
+     *         description="Not Found: Invalid Route",
+     *     ),
+     *     @SWG\Parameter(
+     *          name="Authorization",
+     *          required= true,
+     *          in="header",
+     *          type="string",
+     *          description="Bearer Token",
+     *     )
      * )
      */
-    public function listUserAction(EntityManagerInterface $manager)
+    public function listUserAction(PaginateUsersHandler $handler)
     {
-        $usersList = $manager->getRepository(User::class)->findAll();
-        $paginatedCollection = new PaginatedRepresentation(
-            new CollectionRepresentation(
-                $usersList,
-                'usersList',
-                'usersList'
-            ),
-            'app_user_list', // route
-            array(), // route parameters
-            1,       // page number
-            20,      // limit
-            4       // total pages
-        );
-
-        return $paginatedCollection;
+        return $handler->handle();
     }
 
     /**
@@ -109,42 +115,52 @@ class UserController extends FOSRestController
      * )
      * @Rest\View(StatusCode = 201)
      * @ParamConverter(
-     *      "user", 
-     *      converter="fos_rest.request_body",
-     *      options={
-     *          "validator"={ "groups"="Create" }
-     *      }
+     *      "user",
+     *      converter="fos_rest.request_body"
      * )
      * @SWG\Post(
      *     description="Create user",
+     *     tags = {"User"},
      *     @SWG\Response(
      *          response=201,
-     *          description="successful operation",
+     *          @Model(type=User::class),
+     *          description="Successful operation",
      *     ),
      *     @SWG\Response(
      *         response="400",
-     *         description="No route found: Method Not Allowed",
+     *         description="Bad Request: Method Not Allowed",
      *     ),
      *     @SWG\Response(
      *         response="401",
-     *         description="Expired JWT Token/JWT Token not found",
+     *         description="Unauthorized: Expired JWT Token/JWT Token not found",
      *     ),
      *     @SWG\Response(
      *         response="404",
-     *         description="Invalid Route",
-     *     ), 
+     *         description="Not Found: Invalid Route",
+     *     ),
+     *     @SWG\Parameter(
+     *          name="Authorization",
+     *          required= true,
+     *          in="header",
+     *          type="string",
+     *          description="Bearer Token",
+     *     ),
+     *     @SWG\Parameter(
+     *          name="Body",
+     *          required= true,
+     *          in="body",
+     *          type="string",
+     *          description="All property user to add",
+     *          @SWG\Schema(
+     *              type="array",
+     *              @Model(type=User::class, groups={"user"})
+     *          )
+     *      )
      * )
      */
-    public function createAction(User $user, EntityManagerInterface $manager, ConstraintViolationList $violations)
+    public function createAction(User $user, ValidatorHandler $handler)
     {
-        if (count($violations)) {
-            return $this->view($violations, Response::HTTP_BAD_REQUEST);
-        }
-        $user->setClient($this->getUser());
-        $manager->persist($user);
-        $manager->flush();
-
-        return $this->view($user, Response::HTTP_CREATED, ['Location' => $this->generateUrl('app_user_show', ['id' => $user->getId(), UrlGeneratorInterface::ABSOLUTE_URL])]);
+        return $handler->handle($user);
     }
 
     /**
@@ -153,26 +169,21 @@ class UserController extends FOSRestController
      *    name = "app_user_update"
      * )
      * @Rest\View(StatusCode = 201)
-     * @ParamConverter(
-     *      "updateUser",
-     *       converter="fos_rest.request_body",
-     *       options={
-     *          "validator"={ "groups"="Update" }
-     *      }
-     * )
      * @SWG\Put(
      *     description="Update user",
+     *     tags = {"User"},
      *     @SWG\Response(
      *          response=201,
-     *          description="successful operation",
+     *          @Model(type=User::class),
+     *          description="Successful operation",
      *     ),
      *     @SWG\Response(
      *         response="400",
-     *         description="No route found: Method Not Allowed",
+     *         description="Bad Request: Method Not Allowed",
      *     ),
      *     @SWG\Response(
      *         response="401",
-     *         description="Expired JWT Token/JWT Token not found",
+     *         description="Unauthorized: Expired JWT Token/JWT Token not found",
      *     ),
      *     @SWG\Response(
      *         response="404",
@@ -184,24 +195,30 @@ class UserController extends FOSRestController
      *          in="path",
      *          type="integer",
      *          description="The user unique identifier.",
-     *     ) 
+     *     ),
+     *     @SWG\Parameter(
+     *          name="Authorization",
+     *          required= true,
+     *          in="header",
+     *          type="string",
+     *          description="Bearer Token",
+     *     ),
+     *     @SWG\Parameter(
+     *          name="Body",
+     *          required= true,
+     *          in="body",
+     *          type="string",
+     *          description="Change one or all property user",
+     *          @SWG\Schema(
+     *              type="array",
+     *              @Model(type=User::class, groups={"user"})
+     *          )
+     *      )
      * )
      */
-    public function updateAction(User $user, User $updateUser, EntityManagerInterface $manager, ConstraintViolationList $violations)
+    public function updateAction(User $user, ValidatorHandler $handler)
     {
-        if (count($violations)) {
-            return $this->view($violations, Response::HTTP_BAD_REQUEST);
-        }
-
-        $user->setEmail($updateUser->getEmail());
-        $user->setLastname($updateUser->getLastname());
-        $user->setFirstname($updateUser->getFirstname());
-        $user->setClient($this->getUser());
-        
-        $manager->persist($user);
-        $manager->flush();
-
-        return $this->view($user, Response::HTTP_CREATED, ['Location' => $this->generateUrl('app_user_show', ['id' => $user->getId(), UrlGeneratorInterface::ABSOLUTE_URL])]);
+        return $handler->handleUpdate($user);
     }
 
     /**
@@ -216,17 +233,18 @@ class UserController extends FOSRestController
      * )
      * @SWG\Delete(
      *     description="Delete user",
+     *     tags = {"User"},
      *     @SWG\Response(
      *          response=204,
-     *          description="successful operation",
+     *          description="Successful operation",
      *     ),
      *     @SWG\Response(
      *         response="400",
-     *         description="No route found: Method Not Allowed",
+     *         description="Bad Request: Method Not Allowed",
      *     ),
      *     @SWG\Response(
      *         response="401",
-     *         description="Expired JWT Token/JWT Token not found",
+     *         description="Unauthorized: Expired JWT Token/JWT Token not found",
      *     ),
      *     @SWG\Response(
      *         response="404",
@@ -238,15 +256,18 @@ class UserController extends FOSRestController
      *          in="path",
      *          type="integer",
      *          description="The user unique identifier.",
-     *     ) 
+     *     ),
+     *     @SWG\Parameter(
+     *          name="Authorization",
+     *          required= true,
+     *          in="header",
+     *          type="string",
+     *          description="Bearer Token",
+     *     )
      * )
      */
-    public function deleteAction(User $user, EntityManagerInterface $manager)
+    public function deleteAction(User $user, DeleteHandler $handler)
     {
-        if ($user) {
-            $manager->remove($user);
-            $manager->flush();
-        }
-        return;
+        return $handler->handle($user);
     }
 }

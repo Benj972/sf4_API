@@ -1,4 +1,5 @@
 sensio_framework_extra:
     view: { annotations: true }
     request: { converters: true }
-    router: { annotations: true }    
+    router: { annotations: true }
+    cache: { annotations: true }    

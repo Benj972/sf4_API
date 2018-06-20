@@ -1,0 +1,10 @@
+#csa_guzzle:
+ #   clients:
+  #      api_test:
+   #         config:
+    #            base_url: "http://localhost:3000"
+     #           defaults:
+      #              headers:
+       #                 Accept: application/json
+        #    middleware:       []
+         #   class:            GuzzleHttp\Client

@@ -8,6 +8,7 @@ use JMS\Serializer\Annotation as Serializer;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use Hateoas\Configuration\Annotation as Hateoas;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
@@ -32,7 +33,6 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *          absolute = true
  *      )
  * )
- *
  */
 class Product
 {
@@ -49,6 +49,7 @@ class Product
      * @ORM\Column(type="string", length=255)
      * @Expose
      * @Serializer\Since("1.0")
+     * @Groups({"search_body"})
      */
     private $name;
 
@@ -100,7 +101,7 @@ class Product
      * @Serializer\Since("1.0")
      */
     private $autonomy;
-  
+
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Manufacturer", inversedBy="product", cascade={"persist"})
      * @Expose
@@ -117,9 +118,8 @@ class Product
 
     public function __construct()
     {
-        $this->images = new ArrayCollection();
         $this->configurations = new ArrayCollection();
-        $this->dateCreate = new \Datetime();    
+        $this->dateCreate = new \Datetime();
     }
 
     public function getId()
@@ -235,13 +235,13 @@ class Product
         return $this;
     }
 
-    public function addConfiguration(Configuration $configuraton)
+    public function addConfiguration(Configuration $configuration)
     {
         $this->configurations[] = $configuration;
         $configuration->setProduct($this);
     }
 
-    public function removeConfiguration(Configuration $configuraton)
+    public function removeConfiguration(Configuration $configuration)
     {
         $this->configurations->removeElement($configuration);
         $configuration->setProduct(null);
