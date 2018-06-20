@@ -8,6 +8,7 @@ Version 1.0.0
 
 This project is a REST API for Bilemo to allow clients to display their mobile phones catalog. This API was built with Symfony 4.
 https://github.com/Benj972/sf4_API
+You have access to the API documentation with the uri `api/doc` when you are on the local web server and and also on the repository [here](https://github.com/Benj972/sf4_API/blob/refactoring/docs/swagger.md).
 
 Context:
 --------
@@ -29,7 +30,6 @@ This project uses:
 * [NelmioApiDocBundle](https://github.com/nelmio/NelmioApiDocBundle)
 * [BazingaHateoasBundle](https://github.com/willdurand/BazingaHateoasBundle)
 * [LexikJWTAuthenticationBundle](https://github.com/lexik/LexikJWTAuthenticationBundle)
-* [FOSHttpCacheBundle](https://github.com/FriendsOfSymfony/FOSHttpCacheBundle)
 
 Those dependencies are included in composer.json.
 
@@ -63,5 +63,5 @@ You will get a token. You can now access API by setting these parameters in each
 
 Documentation:
 --------------
-* This API project is documented you find it with request `api/doc`.
+* This API project is documented you find it with request `api/doc` or [here](https://github.com/Benj972/sf4_API/blob/refactoring/docs/swagger.md).
 * You can also look at the [Diagrams](https://github.com/Benj972/sf4_API/tree/refactoring/diagram).
