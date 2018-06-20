@@ -37,11 +37,13 @@ Installation:
 -------------
 1. To be placed in the folder
 2. Recover Repository: `git clone https://github.com/Benj972/sf4_API.git`
-3. Install Composer: `php -r "eval('?>'.file_get_contents('https://getcomposer.org/download/'));"`
+3. Install Composer: `php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"`and`composer-setup.php`
 4. Update Library : `php composer.phar update`
-5. Create database: `php bin/console doctrine:database:create`
-6. Update database: `php bin/console doctrine:schema:update --force`
-7. Load database: `php bin/console doctrine:fixtures:load`
+5. Configuring the [Database](https://symfony.com/doc/current/doctrine.html)
+6. Create database: `php bin/console doctrine:database:create`
+7. Update database: `php bin/console doctrine:schema:update --force`
+8. Load database: `php bin/console doctrine:fixtures:load`
+9. Generate [SSH keys](https://github.com/lexik/LexikJWTAuthenticationBundle/blob/master/Resources/doc/index.md#installation) for use LexikJWTAuthenticationBundle.
 
 This API is ready!
 
@@ -53,10 +55,9 @@ To test API, you can create a client with the command `php bin/console demo:load
 
 Set `Content-Type: application/json` in your request header and do POST request on `api/login_check` with those JSON parameters in request body:
 
-
     {
-    	"_username": "admintest@example.com",
-    	"_password": "admintest"
+    	"_username": "admin@example.com",
+    	"_password": "admin"
     }
 
 You will get a token. You can now access API by setting these parameters in each request header of type `Authorization :Bearer token`.

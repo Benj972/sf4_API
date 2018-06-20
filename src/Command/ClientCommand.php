@@ -32,9 +32,9 @@ class ClientCommand extends ContainerAwareCommand
     public function load()
     {
         $clientTest = new Client();
-        $clientTest->setEmail('admintest@example.com');
+        $clientTest->setEmail('admin@example.com');
 
-        $plainPassword = 'admintest';
+        $plainPassword = 'admin';
         $encoded = $this->encoder->encodePassword($clientTest, $plainPassword);
         $clientTest->setPassword($encoded);
 
