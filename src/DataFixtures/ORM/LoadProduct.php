@@ -9,10 +9,9 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class LoadProduct extends Fixture implements DependentFixtureInterface
 {
-    
     public function load(ObjectManager $manager)
     {
-    	$product1 = new Product;
+        $product1 = new Product();
         $product1->setName('I Phone X');
         $product1->setSize(' 143.6 x 70.9 x 7.7 mm');
         $product1->setMultimedia('Caméra principale:12 mégapixels');
@@ -24,7 +23,7 @@ class LoadProduct extends Fixture implements DependentFixtureInterface
         $product1->setManufacturer($this->getReference('manufacturer2'));
         $manager->persist($product1);
 
-        $product2 = new Product;
+        $product2 = new Product();
         $product2->setName('Galaxy Note 8');
         $product2->setSize('162.5 x 74.6 x 8.5 mm');
         $product2->setMultimedia('Caméra principale : 12 mégapixels');
@@ -36,7 +35,7 @@ class LoadProduct extends Fixture implements DependentFixtureInterface
         $product2->setManufacturer($this->getReference('manufacturer1'));
         $manager->persist($product2);
 
-        $product3 = new Product;
+        $product3 = new Product();
         $product3->setName('iPhone 8 Plus');
         $product3->setSize('158.4 x 78.1 x 7.5 mm');
         $product3->setMultimedia('Caméra principale : 12 mégapixels');
@@ -53,7 +52,7 @@ class LoadProduct extends Fixture implements DependentFixtureInterface
         $product3->setManufacturer($this->getReference('manufacturer2'));
         $manager->persist($product3);
 
-        $product4 = new Product;
+        $product4 = new Product();
         $product4->setName('Galaxy S9');
         $product4->setSize('158.1 x 73.8 x 8.5 mm');
         $product4->setMultimedia('Caméra principale : 12 mégapixels');
@@ -65,7 +64,7 @@ class LoadProduct extends Fixture implements DependentFixtureInterface
         $product4->setManufacturer($this->getReference('manufacturer1'));
         $manager->persist($product4);
 
-        $product5 = new Product;
+        $product5 = new Product();
         $product5->setName('iPhone 8');
         $product5->setSize('138.4 x 67.3 x 7.3 mm');
         $product5->setMultimedia('Caméra principale : 12 mégapixels - Geo-tagging, Détecteur de visage, Mise au point sélective, HDR, Live Stream Video, Panorama');
@@ -83,7 +82,7 @@ class LoadProduct extends Fixture implements DependentFixtureInterface
         $product5->setManufacturer($this->getReference('manufacturer2'));
         $manager->persist($product5);
 
-        $product6 = new Product;
+        $product6 = new Product();
         $product6->setName('Galaxy S8 +');
         $product6->setSize('159.5 x 73.4 x 8.1 mm');
         $product6->setMultimedia('12 mégapixels - Geo-tagging, Détecteur de visage, Contrôle vocal, Contrôle par mouvements, Mise au point sélective, HDR, Panorama, Ralenti, Pro - Collage vidéo, Contrôle vocal, Contrôle par mouvements, Mise au point sélective, HDR, Panorama, Selfie panorama, Pro');
@@ -112,8 +111,8 @@ class LoadProduct extends Fixture implements DependentFixtureInterface
 
     public function getDependencies()
     {
-        return array(
+        return [
         LoadManufacturer::class,
-        );
+        ];
     }
 }

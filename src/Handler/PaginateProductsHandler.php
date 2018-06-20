@@ -10,31 +10,32 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class PaginateProductsHandler
 {
-	/**
+    /**
      * @var EntityManagerInterface
      */
     private $manager;
 
-     /**
+    /**
      * @var RequestStack
      */
     private $requestStack;
 
     /**
      * PaginateProductsHandler constructor.
+     *
      * @param EntityManagerInterface $manager
-     * @param RequestStack $requestStack
+     * @param RequestStack           $requestStack
      */
     public function __construct(EntityManagerInterface $manager, RequestStack $requestStack)
     {
-    	$this->manager = $manager;
-        $this->requestStack = $requestStack; 
+        $this->manager = $manager;
+        $this->requestStack = $requestStack;
     }
 
     public function handle()
     {
         $request = $this->requestStack->getCurrentRequest();
-        $page = $request->query->get('page', 1); 
+        $page = $request->query->get('page', 1);
         $products = $this->manager->getRepository(Product::class)->getProducts($page, $request->query->get('name'));
         $limit = $request->query->get('limit', 4);
         $numberOfPages = (int) ceil(count($products) / $limit);
@@ -46,7 +47,7 @@ class PaginateProductsHandler
                 'products'
             ),
             'app_product_list', // route
-            array(), // route parameters
+            [], // route parameters
             $page,       // page number
             $limit,      // limit
             $numberOfPages       // total pages

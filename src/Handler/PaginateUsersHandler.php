@@ -10,25 +10,26 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class PaginateUsersHandler
 {
-	/**
+    /**
      * @var EntityManagerInterface
      */
     private $manager;
 
-     /**
+    /**
      * @var RequestStack
      */
     private $requestStack;
 
     /**
      * PaginateUserHandler constructor.
+     *
      * @param EntityManagerInterface $manager
-     * @param RequestStack $requestStack
+     * @param RequestStack           $requestStack
      */
     public function __construct(EntityManagerInterface $manager, RequestStack $requestStack)
     {
-    	$this->manager = $manager;
-        $this->requestStack = $requestStack; 
+        $this->manager = $manager;
+        $this->requestStack = $requestStack;
     }
 
     public function handle()
@@ -45,7 +46,7 @@ class PaginateUsersHandler
                 'usersList'
             ),
             'app_user_list', // route
-            array(), // route parameters
+            [], // route parameters
             $page,       // page number
             $limit,      // limit
             $numberOfPages     // total pages

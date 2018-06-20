@@ -3,9 +3,7 @@
 namespace App\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use App\Entity\Client;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -33,8 +31,8 @@ class ClientCommand extends ContainerAwareCommand
 
     public function load()
     {
-        $clientTest = new Client;
-        $clientTest->setEmail("admintest@example.com");
+        $clientTest = new Client();
+        $clientTest->setEmail('admintest@example.com');
 
         $plainPassword = 'admintest';
         $encoded = $this->encoder->encodePassword($clientTest, $plainPassword);
@@ -47,12 +45,12 @@ class ClientCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $client = $input->getArgument('client');
-        $text = strtoupper("Bad Command");
+        $text = strtoupper('Bad Command');
 
-        if ($client == true) {      
+        if (true == $client) {
             $this->load();
-            $text = strtoupper("Client OK"); 
-        } 
+            $text = strtoupper('Client OK');
+        }
 
         $output->writeln($text);
     }

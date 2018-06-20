@@ -5,21 +5,21 @@ namespace App\Controller;
 use App\Entity\Client;
 use Swagger\Annotations as SWG;
 
-class SecurityController 
+class SecurityController
 {
-	/**
+    /**
      * @SWG\Post(
      *     description="Authentication client and get access token",
      *     tags = {"Authentication"},
      *     @SWG\Response(
      *         response="200",
      *         description="Successful operation",
-     *		   @SWG\Schema(
+     *         @SWG\Schema(
      *              type="array",
-     *				@SWG\Items(
-	 *          		type="object",
-	 *              	@SWG\Property(property="token", type="string"),
-	 *          	),
+     *              @SWG\Items(
+     *                  type="object",
+     *                  @SWG\Property(property="token", type="string"),
+     *              ),
      *          )
      *     ),
      *     @SWG\Response(
@@ -33,7 +33,7 @@ class SecurityController
      *     @SWG\Response(
      *         response="404",
      *         description="Not Found: Invalid Route",
-     *     ), 
+     *     ),
      *     @SWG\Parameter(
      *          name="Body",
      *          required= true,
@@ -42,17 +42,17 @@ class SecurityController
      *          description="Use as login '_username: admin@example.com, _password: admintest' for test API",
      *          @SWG\Schema(
      *              type="array",
-     *				@SWG\Items(
-	 *          		type="object",
-	 *              	@SWG\Property(property="_username", type="string"),
-	 *              	@SWG\Property(property="_password", type="string"),
-	 *          	),
+     *              @SWG\Items(
+     *                  type="object",
+     *                  @SWG\Property(property="_username", type="string"),
+     *                  @SWG\Property(property="_password", type="string"),
+     *              ),
      *          )
      *      )
      * )
      */
     public function login()
     {
-    	//manage by lexik_jwt_authentication
+        //manage by lexik_jwt_authentication
     }
 }

@@ -4,13 +4,11 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Handler\PaginateUsersHandler;
-use App\Handler\CreateRequestHandler;
 use App\Handler\DeleteHandler;
 use App\Handler\ValidatorHandler;
 use Symfony\Component\Routing\Annotation\Route;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Controller\Annotations\View;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,14 +19,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 class UserController extends FOSRestController
 {
     /**
-	* @Rest\Get(
-	*		path = "/users/{id}",
-	*		name = "app_user_show",
-	*		requirements = {"id"="\d+"}
-	* )
-	* @Rest\View(StatusCode = 200)
+     * @Rest\Get(
+     *      path = "/users/{id}",
+     *      name = "app_user_show",
+     *      requirements = {"id"="\d+"}
+     * )
+     * @Rest\View(StatusCode = 200)
      * @Cache(maxage="3600", public=true, mustRevalidate=true)
-     * @SWG\Get(    
+     * @SWG\Get(
      *     description="Get one user.",
      *     tags = {"User"},
      *     @SWG\Response(
@@ -47,7 +45,7 @@ class UserController extends FOSRestController
      *     @SWG\Response(
      *         response="404",
      *         description="User object not found: Invalid ID supplied/Invalid Route",
-     *     ), 
+     *     ),
      *     @SWG\Parameter(
      *          name="id",
      *          required= true,
@@ -63,11 +61,11 @@ class UserController extends FOSRestController
      *          description="Bearer Token",
      *     )
      * )
-	*/
+     */
     public function viewAction(User $user)
-	{
-		return $user;
-	}
+    {
+        return $user;
+    }
 
     /**
      * @Rest\Get(
@@ -117,7 +115,7 @@ class UserController extends FOSRestController
      * )
      * @Rest\View(StatusCode = 201)
      * @ParamConverter(
-     *      "user", 
+     *      "user",
      *      converter="fos_rest.request_body"
      * )
      * @SWG\Post(
@@ -139,7 +137,7 @@ class UserController extends FOSRestController
      *     @SWG\Response(
      *         response="404",
      *         description="Not Found: Invalid Route",
-     *     ), 
+     *     ),
      *     @SWG\Parameter(
      *          name="Authorization",
      *          required= true,
@@ -215,7 +213,7 @@ class UserController extends FOSRestController
      *              type="array",
      *              @Model(type=User::class, groups={"user"})
      *          )
-     *      ) 
+     *      )
      * )
      */
     public function updateAction(User $user, ValidatorHandler $handler)
@@ -265,7 +263,7 @@ class UserController extends FOSRestController
      *          in="header",
      *          type="string",
      *          description="Bearer Token",
-     *     ) 
+     *     )
      * )
      */
     public function deleteAction(User $user, DeleteHandler $handler)

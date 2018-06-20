@@ -7,8 +7,8 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Doctrine\ORM\EntityManagerInterface;
 
-class SearchHandler 
-{	
+class SearchHandler
+{
     /**
      * @var EntityManagerInterface
      */
@@ -21,24 +21,26 @@ class SearchHandler
 
     /**
      * Search Handler constructor.
+     *
      * @param EntityManagerInterface $manager
-     * @param RequestStack $requestStack
+     * @param RequestStack           $requestStack
      */
     public function __construct(EntityManagerInterface $manager, RequestStack $requestStack)
     {
         $this->manager = $manager;
-        $this->requestStack = $requestStack;  
+        $this->requestStack = $requestStack;
     }
 
-	public function handle()	
-	{
-	   $request = $this->requestStack->getCurrentRequest();
-       $name = $request->request->get('name');
-       $product = $this->manager->getRepository(Product::class)->getProduct($name);
+    public function handle()
+    {
+        $request = $this->requestStack->getCurrentRequest();
+        $name = $request->request->get('name');
+        $product = $this->manager->getRepository(Product::class)->getProduct($name);
 
-       if (!$product) {
+        if (!$product) {
             throw new BadRequestHttpException('Le produit est indisponible');
-       }
-       return $product;
+        }
+
+        return $product;
     }
 }
