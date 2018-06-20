@@ -14,12 +14,12 @@ class SecurityController
      *     @SWG\Response(
      *         response="200",
      *         description="Successful operation",
-     *		   @SWG\Schema(
+     *         @SWG\Schema(
      *              type="array",
-     *				@SWG\Items(
-     *          		type="object",
-     *              	@SWG\Property(property="token", type="string"),
-     *          	),
+     *              @SWG\Items(
+     *                  type="object",
+     *                  @SWG\Property(property="token", type="string"),
+     *              ),
      *          )
      *     ),
      *     @SWG\Response(
@@ -42,11 +42,11 @@ class SecurityController
      *          description="Use as login '_username: admin@example.com, _password: admintest' for test API",
      *          @SWG\Schema(
      *              type="array",
-     *				@SWG\Items(
-     *          		type="object",
-     *              	@SWG\Property(property="_username", type="string"),
-     *              	@SWG\Property(property="_password", type="string"),
-     *          	),
+     *              @SWG\Items(
+     *                  type="object",
+     *                  @SWG\Property(property="_username", type="string"),
+     *                  @SWG\Property(property="_password", type="string"),
+     *              ),
      *          )
      *      )
      * )

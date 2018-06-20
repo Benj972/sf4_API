@@ -20,9 +20,9 @@ class UserController extends FOSRestController
 {
     /**
      * @Rest\Get(
-     *		path = "/users/{id}",
-     *		name = "app_user_show",
-     *		requirements = {"id"="\d+"}
+     *      path = "/users/{id}",
+     *      name = "app_user_show",
+     *      requirements = {"id"="\d+"}
      * )
      * @Rest\View(StatusCode = 200)
      * @Cache(maxage="3600", public=true, mustRevalidate=true)
