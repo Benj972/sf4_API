@@ -177,6 +177,7 @@ Welcome to the BileMo API documentation
 | ---- | ---------- | ----------- | -------- | ---- |
 | Body | body | Use as login '_username: admin@example.com, _password: admintest' for test API | Yes | [ Login ](#login) |
 
+
 **Responses**
 
 | Code | Description | Schema |

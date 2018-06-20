@@ -6,8 +6,8 @@ This repository is the project 7 "BileMo" in course Php Symfony Web Developer wi
 Version 1.0.0
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/daa9272cd8c74a2c887f2f2344c7add8)](https://www.codacy.com/app/Benj972/sf4_API?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Benj972/sf4_API&amp;utm_campaign=Badge_Grade)
 
-This project is a REST API for Bilemo to allow clients to display their mobile phones catalog. This API was built with Symfony 4.
-https://github.com/Benj972/sf4_API
+This project is a REST API for Bilemo to allow clients to display their mobile phones catalog. This API was built with Symfony 4
+https://github.com/Benj972/sf4_API.
 You have access to the API documentation with the uri `api/doc` when you are on the local web server and and also on the repository [here](https://github.com/Benj972/sf4_API/blob/refactoring/docs/swagger.md).
 
 Context:
