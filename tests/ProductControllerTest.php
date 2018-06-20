@@ -65,7 +65,7 @@ class ProductControllerTest extends WebTestCase
     public function testGetOneProductWithToken()
     {
         $client = $this->createAuthenticatedClient();
-        $client->request('GET', '/products/13');
+        $client->request('GET', '/products/1');
         
         $this->assertSame(200, $client->getResponse()->getStatusCode());  
 
@@ -75,7 +75,7 @@ class ProductControllerTest extends WebTestCase
 
     public function testGetOneProductWithoutToken()
     {
-        $this->secondClient->request('GET', '/products/13');
+        $this->secondClient->request('GET', '/products/1');
         $this->assertSame(401, $this->secondClient->getResponse()->getStatusCode());
     }
 

@@ -51,13 +51,13 @@ class UserControllerTest extends WebTestCase
     public function testGetOneUserWithToken()
     {
         $client = $this->createAuthenticatedClient();
-        $client->request('GET', '/users/5');
+        $client->request('GET', '/users/1');
         $this->assertSame(200, $client->getResponse()->getStatusCode());   
     } 
 
     public function testGetOneUserWithoutToken()
     {
-        $this->secondClient->request('GET', '/users/5');
+        $this->secondClient->request('GET', '/users/1');
         $this->assertSame(401, $this->secondClient->getResponse()->getStatusCode());  
     }
 
@@ -97,7 +97,7 @@ class UserControllerTest extends WebTestCase
         }
         ';
 
-        $client->request('PUT', '/users/5', (array) json_decode($data), [], ['CONTENT_TYPE' => 'application/json']); 
+        $client->request('PUT', '/users/1', (array) json_decode($data), [], ['CONTENT_TYPE' => 'application/json']); 
         $this->assertSame(201, $client->getResponse()->getStatusCode());
     }
 }
