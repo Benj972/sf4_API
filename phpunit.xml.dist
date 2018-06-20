@@ -14,12 +14,26 @@
         <env name="APP_DEBUG" value="1" />
         <env name="APP_SECRET" value="s$cretf0rt3st" />
         <env name="SHELL_VERBOSITY" value="-1" />
+       <!--<env name="TEST_BASE_URL" value="http://localhost:8000" />-->
+        <!--<env name=
+        "DATABASE_URL" value="mysql://USERNAME:PASSWORD@127.0.0.1/DB_NAME" />-->
         <!-- define your env variables for the test env here -->
+
+        <!-- ###+ lexik/jwt-authentication-bundle ### -->
+        <!-- Key paths should be relative to the project directory -->
+        <!--<env name="JWT_PRIVATE_KEY_PATH" value="var/jwt/private.pem"/>-->
+        <!--<env name="JWT_PUBLIC_KEY_PATH" value="var/jwt/public.pem"/>-->
+        <!--<env name="JWT_PASSPHRASE" value=""/>-->
+        <!-- ###- lexik/jwt-authentication-bundle ### -->
     </php>
 
     <testsuites>
         <testsuite name="Project Test Suite">
-            <directory>tests/</directory>
+            <directory>tests/ProductControllerTest.php</directory>
+            <directory>tests/UserControllerTest.php</directory>
+            <directory>tests/SecurityControllerTest.php</directory>
+            <directory>tests/Unitary/UserControllerTest.php</directory>
+            <directory>tests/Unitary/ProductControllerTest.php</directory>
         </testsuite>
     </testsuites>
 

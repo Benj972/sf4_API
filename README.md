@@ -1,37 +1,67 @@
-## Welcome to GitHub Pages
+BileMo API REST
+===============
 
-You can use the [editor on GitHub](https://github.com/Benj972/sf4_API/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+This repository is the project 7 "BileMo" in course Php Symfony Web Developer with [OpenClassrooms](https://openclassrooms.com).
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Version 1.0.0
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/daa9272cd8c74a2c887f2f2344c7add8)](https://www.codacy.com/app/Benj972/sf4_API?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Benj972/sf4_API&amp;utm_campaign=Badge_Grade)
 
-### Markdown
+This project is a REST API for Bilemo to allow clients to display their mobile phones catalog. This API was built with Symfony 4
+https://github.com/Benj972/sf4_API.
+You have access to the API documentation with the uri `api/doc` when you are on the local web server and and also on the repository [here](https://github.com/Benj972/sf4_API/blob/refactoring/docs/swagger.md).
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+Context:
+--------
+BileMo is a company offering a selection of high-end mobile phones.
 
-```markdown
-Syntax highlighted code block
+You are in charge of the development of the showcase of BileMo mobile phones. The business model of BileMo is not to sell directly on the website, but to provide all platforms that wish to access the catalog via an API (Application Programming Interface). It is therefore sales exclusively B2B (business to business).
 
-# Header 1
-## Header 2
-### Header 3
+Prerequisites:
+--------------
+* PHP v7.0
+* MySQL
+* Composer
 
-- Bulleted
-- List
+Dependencies:
+-------------
+This project uses:
+* [FOSRestBundle](https://github.com/FriendsOfSymfony/FOSRestBundle)
+* [JMSSerializerBundle](https://github.com/schmittjoh/JMSSerializerBundle)
+* [NelmioApiDocBundle](https://github.com/nelmio/NelmioApiDocBundle)
+* [BazingaHateoasBundle](https://github.com/willdurand/BazingaHateoasBundle)
+* [LexikJWTAuthenticationBundle](https://github.com/lexik/LexikJWTAuthenticationBundle)
 
-1. Numbered
-2. List
+Those dependencies are included in composer.json.
 
-**Bold** and _Italic_ and `Code` text
+Installation:
+-------------
+1. To be placed in the folder
+2. Recover Repository: `git clone https://github.com/Benj972/sf4_API.git`
+3. Install Composer: `php -r "eval('?>'.file_get_contents('https://getcomposer.org/download/'));"`
+4. Update Library : `php composer.phar update`
+5. Create database: `php bin/console doctrine:database:create`
+6. Update database: `php bin/console doctrine:schema:update --force`
+7. Load database: `php bin/console doctrine:fixtures:load`
 
-[Link](url) and ![Image](src)
-```
+This API is ready!
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+Authentication:
+---------------
+This API is restricted to Bilemo client.
 
-### Jekyll Themes
+To test API, you can create a client with the command `php bin/console demo:load client`
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Benj972/sf4_API/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+Set `Content-Type: application/json` in your request header and do POST request on `api/login_check` with those JSON parameters in request body:
 
-### Support or Contact
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+    {
+    	"_username": "admintest@example.com",
+    	"_password": "admintest"
+    }
+
+You will get a token. You can now access API by setting these parameters in each request header of type `Authorization :Bearer token`.
+
+Documentation:
+--------------
+* This API project is documented you find it with request `api/doc` or [here](https://github.com/Benj972/sf4_API/blob/refactoring/docs/swagger.md).
+* You can also look at the [Diagrams](https://github.com/Benj972/sf4_API/tree/refactoring/diagram).
