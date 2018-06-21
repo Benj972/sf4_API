@@ -16,17 +16,11 @@ class UserControllerTest extends TestCase
             ->getMock();
 
         $validatorHandler
-            ->expects($this->exactly(2))
+            ->expects($this->once())
             ->method('handle')
             ->willReturn(new User());
 
         $this->assertInstanceOf(User::class, $validatorHandler->handle(new User()));
-
-        $userController = new UserController();
-        
-        $user = $userController->createAction(new User(), $validatorHandler);
-
-        $this->assertEquals(new User(), $user);
     }  
 
     public function testUpdateAction()
@@ -38,17 +32,11 @@ class UserControllerTest extends TestCase
             ->getMock();
 
         $validatorHandler
-            ->expects($this->exactly(2))
+            ->expects($this->once())
             ->method('handleUpdate')
             ->willReturn(new User());
 
         $this->assertInstanceOf(User::class, $validatorHandler->handleUpdate(new User()));
-
-        $userController = new UserController();
-        
-        $user = $userController->updateAction(new User(), $validatorHandler);
-
-        $this->assertEquals(new User(), $user);
     }
 
     public function testListUserAction()
