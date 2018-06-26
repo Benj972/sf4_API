@@ -1,0 +1,921 @@
+<!doctype html>
+<html>
+  <head>
+    <title>BileMo API</title>
+    <style type="text/css">
+      body {
+	font-family: Trebuchet MS, sans-serif;
+	font-size: 15px;
+	color: #444;
+	margin-right: 24px;
+}
+
+h1	{
+	font-size: 25px;
+}
+h2	{
+	font-size: 20px;
+}
+h3	{
+	font-size: 16px;
+	font-weight: bold;
+}
+hr	{
+	height: 1px;
+	border: 0;
+	color: #ddd;
+	background-color: #ddd;
+}
+
+.app-desc {
+  clear: both;
+  margin-left: 20px;
+}
+.param-name {
+  width: 100%;
+}
+.license-info {
+  margin-left: 20px;
+}
+
+.license-url {
+  margin-left: 20px;
+}
+
+.model {
+  margin: 0 0 0px 20px;
+}
+
+.method {
+  margin-left: 20px;
+}
+
+.method-notes	{
+	margin: 10px 0 20px 0;
+	font-size: 90%;
+	color: #555;
+}
+
+pre {
+  padding: 10px;
+  margin-bottom: 2px;
+}
+
+.http-method {
+ text-transform: uppercase;
+}
+
+pre.get {
+  background-color: #0f6ab4;
+}
+
+pre.post {
+  background-color: #10a54a;
+}
+
+pre.put {
+  background-color: #c5862b;
+}
+
+pre.delete {
+  background-color: #a41e22;
+}
+
+.huge	{
+	color: #fff;
+}
+
+pre.example {
+  background-color: #f3f3f3;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+code {
+  white-space: pre;
+}
+
+.nickname {
+  font-weight: bold;
+}
+
+.method-path {
+  font-size: 1.5em;
+  background-color: #0f6ab4;
+}
+
+.up {
+  float:right;
+}
+
+.parameter {
+  width: 500px;
+}
+
+.param {
+  width: 500px;
+  padding: 10px 0 0 20px;
+  font-weight: bold;
+}
+
+.param-desc {
+  width: 700px;
+  padding: 0 0 0 20px;
+  color: #777;
+}
+
+.param-type {
+  font-style: italic;
+}
+
+.param-enum-header {
+width: 700px;
+padding: 0 0 0 60px;
+color: #777;
+font-weight: bold;
+}
+
+.param-enum {
+width: 700px;
+padding: 0 0 0 80px;
+color: #777;
+font-style: italic;
+}
+
+.field-label {
+  padding: 0;
+  margin: 0;
+  clear: both;
+}
+
+.field-items	{
+	padding: 0 0 15px 0;
+	margin-bottom: 15px;
+}
+
+.return-type {
+  clear: both;
+  padding-bottom: 10px;
+}
+
+.param-header {
+  font-weight: bold;
+}
+
+.method-tags {
+  text-align: right;
+}
+
+.method-tag {
+  background: none repeat scroll 0% 0% #24A600;
+  border-radius: 3px;
+  padding: 2px 10px;
+  margin: 2px;
+  color: #FFF;
+  display: inline-block;
+  text-decoration: none;
+}
+
+    </style>
+  </head>
+  <body>
+  <h1>BileMo API</h1>
+    <div class="app-desc">Welcome to the BileMo API documentation</div>
+    <div class="app-desc">More information: <a href="https://helloreverb.com">https://helloreverb.com</a></div>
+    <div class="app-desc">Contact Info: <a href="hello@helloreverb.com">hello@helloreverb.com</a></div>
+    <div class="app-desc">Version: 1.0.0</div>
+    <div class="app-desc">BasePath:</div>
+    <div class="license-info">All rights reserved</div>
+    <div class="license-url">http://apache.org/licenses/LICENSE-2.0.html</div>
+  <h2>Access</h2>
+
+  <h2><a name="__Methods">Methods</a></h2>
+  [ Jump to <a href="#__Models">Models</a> ]
+
+  <h3>Table of Contents </h3>
+  <div class="method-summary"></div>
+  <h4><a href="#Authentication">Authentication</a></h4>
+  <ul>
+  <li><a href="#apiLoginCheckPost"><code><span class="http-method">post</span> /api/login_check</code></a></li>
+  </ul>
+  <h4><a href="#Product">Product</a></h4>
+  <ul>
+  <li><a href="#productsGet"><code><span class="http-method">get</span> /products</code></a></li>
+  <li><a href="#productsIdGet"><code><span class="http-method">get</span> /products/{id}</code></a></li>
+  <li><a href="#searchPost"><code><span class="http-method">post</span> /search</code></a></li>
+  </ul>
+  <h4><a href="#User">User</a></h4>
+  <ul>
+  <li><a href="#usersGet"><code><span class="http-method">get</span> /users</code></a></li>
+  <li><a href="#usersIdDelete"><code><span class="http-method">delete</span> /users/{id}</code></a></li>
+  <li><a href="#usersIdGet"><code><span class="http-method">get</span> /users/{id}</code></a></li>
+  <li><a href="#usersIdPut"><code><span class="http-method">put</span> /users/{id}</code></a></li>
+  <li><a href="#usersPost"><code><span class="http-method">post</span> /users</code></a></li>
+  </ul>
+
+  <h1><a name="Authentication">Authentication</a></h1>
+  <div class="method"><a name="apiLoginCheckPost"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /api/login_check</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">apiLoginCheckPost</span>)</div>
+    <div class="method-notes">Authentication client and get access token</div>
+
+
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">Body <a href="#Body">Body</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Use as login '_username: admin@example.com, _password: admin' for test API </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#inline_response_200">inline_response_200</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "token" : "token"
+}, {
+  "token" : "token"
+} ]</code></pre>
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful operation
+        
+    <h4 class="field-label">400</h4>
+    Bad Request: Method Not Allowed
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized: Bad credentials
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Not Found: Invalid Route
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Product">Product</a></h1>
+  <div class="method"><a name="productsGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /products</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">productsGet</span>)</div>
+    <div class="method-notes">Get the list of products.</div>
+
+
+
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+      
+    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">name (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Search product by name in list products </div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Product">Product</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "autonomy" : "autonomy",
+  "multimedia" : "multimedia",
+  "size" : "size",
+  "date_create" : "2000-01-23T04:56:07.000+00:00",
+  "configurations" : [ {
+    "images" : [ {
+      "id" : 5,
+      "url" : "url"
+    }, {
+      "id" : 5,
+      "url" : "url"
+    } ],
+    "memory" : "memory",
+    "color" : "color",
+    "serial" : "serial",
+    "price" : 5.962134,
+    "id" : 1
+  }, {
+    "images" : [ {
+      "id" : 5,
+      "url" : "url"
+    }, {
+      "id" : 5,
+      "url" : "url"
+    } ],
+    "memory" : "memory",
+    "color" : "color",
+    "serial" : "serial",
+    "price" : 5.962134,
+    "id" : 1
+  } ],
+  "name" : "name",
+  "description" : "description",
+  "screen" : "screen",
+  "id" : 0,
+  "networks" : "networks",
+  "manufacturer" : {
+    "name" : "name",
+    "id" : 6
+  }
+}</code></pre>
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    successful operation
+        <a href="#Product">Product</a>
+    <h4 class="field-label">400</h4>
+    Bad Request: Method Not Allowed
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized: Expired JWT Token/JWT Token not found
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Not Found: Invalid Route
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="productsIdGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /products/{id}</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">productsIdGet</span>)</div>
+    <div class="method-notes">Get one product.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The product unique identifier. </div>
+    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+      
+    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Product">Product</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "autonomy" : "autonomy",
+  "multimedia" : "multimedia",
+  "size" : "size",
+  "date_create" : "2000-01-23T04:56:07.000+00:00",
+  "configurations" : [ {
+    "images" : [ {
+      "id" : 5,
+      "url" : "url"
+    }, {
+      "id" : 5,
+      "url" : "url"
+    } ],
+    "memory" : "memory",
+    "color" : "color",
+    "serial" : "serial",
+    "price" : 5.962134,
+    "id" : 1
+  }, {
+    "images" : [ {
+      "id" : 5,
+      "url" : "url"
+    }, {
+      "id" : 5,
+      "url" : "url"
+    } ],
+    "memory" : "memory",
+    "color" : "color",
+    "serial" : "serial",
+    "price" : 5.962134,
+    "id" : 1
+  } ],
+  "name" : "name",
+  "description" : "description",
+  "screen" : "screen",
+  "id" : 0,
+  "networks" : "networks",
+  "manufacturer" : {
+    "name" : "name",
+    "id" : 6
+  }
+}</code></pre>
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    successful operation
+        <a href="#Product">Product</a>
+    <h4 class="field-label">400</h4>
+    Bad Request: Method Not Allowed
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized: Expired JWT Token/JWT Token not found
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Product object not found: Invalid ID supplied/Invalid Route
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="searchPost"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /search</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">searchPost</span>)</div>
+    <div class="method-notes">Search product by Keyword.</div>
+
+
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">Body <a href="#Product2">Product2</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Parameter name to add </div>
+
+    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+      
+    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Product">Product</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "autonomy" : "autonomy",
+  "multimedia" : "multimedia",
+  "size" : "size",
+  "date_create" : "2000-01-23T04:56:07.000+00:00",
+  "configurations" : [ {
+    "images" : [ {
+      "id" : 5,
+      "url" : "url"
+    }, {
+      "id" : 5,
+      "url" : "url"
+    } ],
+    "memory" : "memory",
+    "color" : "color",
+    "serial" : "serial",
+    "price" : 5.962134,
+    "id" : 1
+  }, {
+    "images" : [ {
+      "id" : 5,
+      "url" : "url"
+    }, {
+      "id" : 5,
+      "url" : "url"
+    } ],
+    "memory" : "memory",
+    "color" : "color",
+    "serial" : "serial",
+    "price" : 5.962134,
+    "id" : 1
+  } ],
+  "name" : "name",
+  "description" : "description",
+  "screen" : "screen",
+  "id" : 0,
+  "networks" : "networks",
+  "manufacturer" : {
+    "name" : "name",
+    "id" : 6
+  }
+}</code></pre>
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    successful operation
+        <a href="#Product">Product</a>
+    <h4 class="field-label">400</h4>
+    Bad Request: Product is unavailable
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized: Expired JWT Token/JWT Token not found
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Not Found: Invalid Route
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="User">User</a></h1>
+  <div class="method"><a name="usersGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /users</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">usersGet</span>)</div>
+    <div class="method-notes">Get the list of users.</div>
+
+
+
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+      
+    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#User">User</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "firstname" : "firstname",
+  "id" : 0,
+  "email" : "email",
+  "lastname" : "lastname"
+}</code></pre>
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful operation
+        <a href="#User">User</a>
+    <h4 class="field-label">400</h4>
+    Bad Request: Method Not Allowed
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized: Expired JWT Token/JWT Token not found
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Not Found: Invalid Route
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="usersIdDelete"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /users/{id}</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">usersIdDelete</span>)</div>
+    <div class="method-notes">Delete user</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The user unique identifier. </div>
+    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+      
+    </div>  <!-- field-items -->
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">204</h4>
+    Successful operation
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Bad Request: Method Not Allowed
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized: Expired JWT Token/JWT Token not found
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    User object not found: Invalid ID supplied/Invalid Route
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="usersIdGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /users/{id}</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">usersIdGet</span>)</div>
+    <div class="method-notes">Get one user.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The user unique identifier. </div>
+    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+      
+    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#User">User</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "firstname" : "firstname",
+  "id" : 0,
+  "email" : "email",
+  "lastname" : "lastname"
+}</code></pre>
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful operation
+        <a href="#User">User</a>
+    <h4 class="field-label">400</h4>
+    Bad Request: Method Not Allowed
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized: Expired JWT Token/JWT Token not found
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    User object not found: Invalid ID supplied/Invalid Route
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="usersIdPut"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /users/{id}</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">usersIdPut</span>)</div>
+    <div class="method-notes">Update user</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The user unique identifier. </div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">Body <a href="#User2">User2</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Change one or all property user </div>
+
+    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+      
+    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#User">User</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "firstname" : "firstname",
+  "id" : 0,
+  "email" : "email",
+  "lastname" : "lastname"
+}</code></pre>
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    Successful operation
+        <a href="#User">User</a>
+    <h4 class="field-label">400</h4>
+    Bad Request: Method Not Allowed
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized: Expired JWT Token/JWT Token not found
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    User object not found: Invalid ID supplied/Invalid Route
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="usersPost"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /users</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">usersPost</span>)</div>
+    <div class="method-notes">Create user</div>
+
+
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">Body <a href="#User2">User2</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; All property user to add </div>
+
+    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+      
+    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#User">User</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "firstname" : "firstname",
+  "id" : 0,
+  "email" : "email",
+  "lastname" : "lastname"
+}</code></pre>
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    Successful operation
+        <a href="#User">User</a>
+    <h4 class="field-label">400</h4>
+    Bad Request: Method Not Allowed
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized: Expired JWT Token/JWT Token not found
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Not Found: Invalid Route
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+
+  <h2><a name="__Models">Models</a></h2>
+  [ Jump to <a href="#__Methods">Methods</a> ]
+
+  <h3>Table of Contents</h3>
+  <ol>
+    <li><a href="#Body"><code>Body</code> - </a></li>
+    <li><a href="#Configuration"><code>Configuration</code> - </a></li>
+    <li><a href="#Image"><code>Image</code> - </a></li>
+    <li><a href="#Manufacturer"><code>Manufacturer</code> - </a></li>
+    <li><a href="#Product"><code>Product</code> - </a></li>
+    <li><a href="#Product2"><code>Product2</code> - </a></li>
+    <li><a href="#User"><code>User</code> - </a></li>
+    <li><a href="#User2"><code>User2</code> - </a></li>
+    <li><a href="#inline_response_200"><code>inline_response_200</code> - </a></li>
+  </ol>
+
+  <div class="model">
+    <h3><a name="Body"><code>Body</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">_username (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">_password (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Configuration"><code>Configuration</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+<div class="param">color (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">memory (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">serial (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">price (optional)</div><div class="param-desc"><span class="param-type"><a href="#float">Float</a></span>  format: float</div>
+<div class="param">images (optional)</div><div class="param-desc"><span class="param-type"><a href="#Image">array[Image]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Image"><code>Image</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+<div class="param">url (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Manufacturer"><code>Manufacturer</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+<div class="param">name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Product"><code>Product</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+<div class="param">name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">date_create (optional)</div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span>  format: date-time</div>
+<div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">size (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">multimedia (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">networks (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">screen (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">autonomy (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">manufacturer (optional)</div><div class="param-desc"><span class="param-type"><a href="#Manufacturer">Manufacturer</a></span>  </div>
+<div class="param">configurations (optional)</div><div class="param-desc"><span class="param-type"><a href="#Configuration">array[Configuration]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Product2"><code>Product2</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="User"><code>User</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+<div class="param">email </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">lastname </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">firstname </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="User2"><code>User2</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">email </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">lastname </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">firstname </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="inline_response_200"><code>inline_response_200</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">token (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  </body>
+</html>
