@@ -192,75 +192,75 @@ Welcome to the BileMo API documentation
 
 ### Product  
 
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| id | integer |  | No |
-| name | string |  | No |
-| date_create | dateTime |  | No |
-| description | string |  | No |
-| size | string |  | No |
-| multimedia | string |  | No |
-| networks | string |  | No |
-| screen | string |  | No |
-| autonomy | string |  | No |
-| manufacturer | [Manufacturer](#manufacturer) |  | No |
-| configurations | [ [Configuration](#configuration) ] |  | No |
+| Name | Type |
+| ---- | ---- | 
+| id | integer |
+| name | string | 
+| date_create | dateTime |
+| description | string |
+| size | string |
+| multimedia | string |
+| networks | string |
+| screen | string | 
+| autonomy | string | 
+| manufacturer | [Manufacturer](#manufacturer)|
+| configurations | [ [Configuration](#configuration) ] | 
 
 ### Product2  
 
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| name | string |  | No |
+| Name | Type | 
+| ---- | ---- | 
+| name | string |
 
 ### User  
 
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| id | integer |  | No |
-| email | string |  | No |
-| lastname | string |  | No |
-| firstname | string |  | No |
+| Name | Type | 
+| ---- | ---- |
+| id | integer |
+| email | string |
+| lastname | string |
+| firstname | string |
 
 ### User2  
 
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| email | string |  | No |
-| lastname | string |  | No |
-| firstname | string |  | No |
+| Name | Type |
+| ---- | ---- |
+| email | string |
+| lastname | string |
+| firstname | string |
 
 ### Manufacturer  
 
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| id | integer |  | No |
-| name | string |  | No |
+| Name | Type | 
+| ---- | ---- |
+| id | integer |
+| name | string |
 
 ### Configuration  
 
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| id | integer |  | No |
-| color | string |  | No |
-| memory | string |  | No |
-| serial | string |  | No |
-| price | float |  | No |
-| images | [ [Image](#image) ] |  | No |
+| Name | Type |
+| ---- | ---- | 
+| id | integer | 
+| color | string |
+| memory | string |
+| serial | string | 
+| price | float | 
+| images | [ [Image](#image) ] |
 
 ### Image  
 
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| id | integer |  | No |
-| url | string |  | No |
+| Name | Type | 
+| ---- | ---- | 
+| id | integer |
+| url | string |
 
 ### Login
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| _username | string |  | No |
-| _password | string |  | No |
+| Name | Type | 
+| ---- | ---- |
+| _username | string |
+| _password | string |
 
 ### Token
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| token | string |  | No |
+| Name | Type | 
+| ---- | ---- |
+| token | string |
