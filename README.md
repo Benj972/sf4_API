@@ -38,7 +38,7 @@ Installation:
 1. To be placed in the folder
 2. Recover Repository: `git clone https://github.com/Benj972/sf4_API.git`
 3. Install Composer: `php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"`and`composer-setup.php`
-4. Update Library : `php composer.phar update`
+4. Install Library : `php composer.phar install`
 5. Configuring the [Database](https://symfony.com/doc/current/doctrine.html)
 6. Create database: `php bin/console doctrine:database:create`
 7. Update database: `php bin/console doctrine:schema:update --force`
