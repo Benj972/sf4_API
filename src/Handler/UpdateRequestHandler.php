@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use App\Entity\User;
 
-class CreateRequestHandler
+class UpdateRequestHandler
 {
     /**
      * @var EntityManagerInterface
@@ -26,7 +26,7 @@ class CreateRequestHandler
     private $requestStack;
 
     /**
-     * CreateRequestHandler constructor.
+     * UpdateRequestHandler constructor.
      *
      * @param EntityManagerInterface $manager
      * @param TokenStorageInterface  $tokenStorage
@@ -39,16 +39,20 @@ class CreateRequestHandler
         $this->requestStack = $requestStack;
     }
 
-    public function handle($user, $violations)
+    public function handleUpdate($user, $violations)
     {
         if (count($violations)) {
             throw new BadRequestHttpException($violations);
         }
-
-        $user->setClient($this->tokenStorage->getToken()->getUser());
-        $this->manager->persist($user);
+        $request = $this->requestStack->getCurrentRequest();
+        $userUpdate = $this->manager->getRepository(User::class)-> find($request->attributes->get('id'));
+        $userUpdate->setEmail($user->getEmail());
+        $userUpdate->setLastname($user->getLastname());
+        $userUpdate->setFirstname($user->getFirstname());
+        $userUpdate->setClient($this->tokenStorage->getToken()->getUser());
+        $this->manager->persist($userUpdate);
         $this->manager->flush();
 
-        return $user;
+        return $userUpdate;
     }
 }

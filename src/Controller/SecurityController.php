@@ -39,7 +39,7 @@ class SecurityController
      *          required= true,
      *          in="body",
      *          type="string",
-     *          description="Use as login '_username: admin@example.com, _password: admintest' for test API",
+     *          description="Use as login '_username: admin@example.com, _password: admin' for test API",
      *          @SWG\Schema(
      *              type="array",
      *              @SWG\Items(

@@ -8,7 +8,7 @@ Version 1.0.0
 
 This project is a REST API for Bilemo to allow clients to display their mobile phones catalog. This API was built with Symfony 4
 https://github.com/Benj972/sf4_API.
-You have access to the API documentation with the uri `api/doc` when you are on the local web server and and also on the repository [here](https://github.com/Benj972/sf4_API/blob/refactoring/docs/swagger.md).
+You have access to the API documentation with the uri `api/doc` when you are on the local web server, also on the [repository](https://github.com/Benj972/sf4_API/blob/refactoring/docs/swagger.md) or on the [web page](https://benj972.github.io/sf4_API/).
 
 Context:
 --------
@@ -38,7 +38,7 @@ Installation:
 1. To be placed in the folder
 2. Recover Repository: `git clone https://github.com/Benj972/sf4_API.git`
 3. Install Composer: `php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"`and`composer-setup.php`
-4. Update Library : `php composer.phar update`
+4. Install Library : `php composer.phar install`
 5. Configuring the [Database](https://symfony.com/doc/current/doctrine.html)
 6. Create database: `php bin/console doctrine:database:create`
 7. Update database: `php bin/console doctrine:schema:update --force`

@@ -5,6 +5,7 @@ use Symfony\Component\Debug\Debug;
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\HttpFoundation\Request;
 use Blackfire\Client;
+use App\CacheKernel;
 
 require __DIR__.'/../vendor/autoload.php';
 
@@ -46,6 +47,12 @@ if ($trustedHosts = $_SERVER['TRUSTED_HOSTS'] ?? false) {
 }
 
 $kernel = new Kernel($env, $debug);
+
+// Wrap the default Kernel with the CacheKernel one in 'prod' environment
+if ('dev' === $env) {
+     $kernel = new CacheKernel($kernel);
+}
+
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
 $response->send();

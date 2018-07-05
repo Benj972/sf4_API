@@ -5,7 +5,8 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Handler\PaginateUsersHandler;
 use App\Handler\DeleteHandler;
-use App\Handler\ValidatorHandler;
+use App\Handler\CreateRequestHandler;
+use App\Handler\UpdateRequestHandler;
 use Symfony\Component\Routing\Annotation\Route;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -15,6 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Swagger\Annotations as SWG;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
+use Symfony\Component\Validator\ConstraintViolationList;
 
 class UserController extends FOSRestController
 {
@@ -158,9 +160,9 @@ class UserController extends FOSRestController
      *      )
      * )
      */
-    public function createAction(User $user, ValidatorHandler $handler)
+    public function createAction(User $user, CreateRequestHandler $handler, ConstraintViolationList $violations)
     {
-        return $handler->handle($user);
+        return $handler->handle($user, $violations);
     }
 
     /**
@@ -169,6 +171,10 @@ class UserController extends FOSRestController
      *    name = "app_user_update"
      * )
      * @Rest\View(StatusCode = 201)
+     * @ParamConverter(
+     *      "user",
+     *      converter="fos_rest.request_body"
+     * )
      * @SWG\Put(
      *     description="Update user",
      *     tags = {"User"},
@@ -216,9 +222,9 @@ class UserController extends FOSRestController
      *      )
      * )
      */
-    public function updateAction(User $user, ValidatorHandler $handler)
+    public function updateAction(User $user, UpdateRequestHandler $handler, ConstraintViolationList $violations)
     {
-        return $handler->handleUpdate($user);
+        return $handler->handleUpdate($user, $violations);
     }
 
     /**

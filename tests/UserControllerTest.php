@@ -80,7 +80,6 @@ class UserControllerTest extends WebTestCase
             ])
         );
         
-        /*echo $client->getResponse()->getContent();*/
         $this->assertSame(201, $client->getResponse()->getStatusCode());
     }
 
@@ -88,16 +87,13 @@ class UserControllerTest extends WebTestCase
     {
         $client = $this->createAuthenticatedClient();
 
-        $data =
-        '
-        {
-            "email": "test4@hotmail.fr",
-            "lastname": "testlastname",
-            "firstname":"testfirstanme"
-        }
-        ';
-
-        $client->request('PUT', '/users/1', (array) json_decode($data), [], ['CONTENT_TYPE' => 'application/json']); 
+        $client->request('PUT', '/users/1',[],[],['CONTENT_TYPE' => 'application/json'],json_encode([
+            "email" => "test@hotmail.fr",
+            "lastname" => "testlastname",
+            "firstname" => "testfirstanme"
+            ])
+        );
+ 
         $this->assertSame(201, $client->getResponse()->getStatusCode());
     }
 }

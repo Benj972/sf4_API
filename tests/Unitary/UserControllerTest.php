@@ -4,51 +4,40 @@ namespace tests\Unitary;
 use PHPUnit\Framework\TestCase;
 use App\Controller\UserController;
 use App\Entity\User;
+use Symfony\Component\Validator\ConstraintViolationList;
 
 class UserControllerTest extends TestCase
 {
 	public function testCreateAction()
     {
-        $validatorHandler = $this
-            ->getMockBuilder('App\Handler\ValidatorHandler')
+        $createHandler = $this
+            ->getMockBuilder('App\Handler\CreateRequestHandler')
             ->disableOriginalConstructor()
             ->setMethods(['handle'])
             ->getMock();
 
-        $validatorHandler
-            ->expects($this->exactly(2))
+        $createHandler
+            ->expects($this->once())
             ->method('handle')
-            ->willReturn(new User());
+            ->willReturn(new User(), new ConstraintViolationList());
 
-        $this->assertInstanceOf(User::class, $validatorHandler->handle(new User()));
-
-        $userController = new UserController();
-        
-        $user = $userController->createAction(new User(), $validatorHandler);
-
-        $this->assertEquals(new User(), $user);
+        $this->assertInstanceOf(User::class, $createHandler->handle(new User(), new ConstraintViolationList()));
     }  
 
     public function testUpdateAction()
     {
-    	$validatorHandler = $this
-            ->getMockBuilder('App\Handler\ValidatorHandler')
+    	$updateHandler = $this
+            ->getMockBuilder('App\Handler\UpdateRequestHandler')
             ->disableOriginalConstructor()
             ->setMethods(['handleUpdate'])
             ->getMock();
 
-        $validatorHandler
-            ->expects($this->exactly(2))
+        $updateHandler
+            ->expects($this->once())
             ->method('handleUpdate')
-            ->willReturn(new User());
+            ->willReturn(new User(), new ConstraintViolationList());
 
-        $this->assertInstanceOf(User::class, $validatorHandler->handleUpdate(new User()));
-
-        $userController = new UserController();
-        
-        $user = $userController->updateAction(new User(), $validatorHandler);
-
-        $this->assertEquals(new User(), $user);
+        $this->assertInstanceOf(User::class, $updateHandler->handleUpdate(new User(), new ConstraintViolationList()));
     }
 
     public function testListUserAction()
