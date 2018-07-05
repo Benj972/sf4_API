@@ -103,7 +103,7 @@ class Product
     private $autonomy;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Manufacturer", inversedBy="product", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Manufacturer", inversedBy="products", cascade={"persist"})
      * @Expose
      * @Serializer\Since("1.0")
      */
