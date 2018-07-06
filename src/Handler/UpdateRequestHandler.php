@@ -45,7 +45,7 @@ class UpdateRequestHandler
             throw new BadRequestHttpException($violations);
         }
         $request = $this->requestStack->getCurrentRequest();
-        $userUpdate = $this->manager->getRepository(User::class)-> find($request->attributes->get('id'));
+        $userUpdate = $this->manager->getRepository(User::class)->find($request->attributes->get('id'));
         $userUpdate->setEmail($user->getEmail());
         $userUpdate->setLastname($user->getLastname());
         $userUpdate->setFirstname($user->getFirstname());
