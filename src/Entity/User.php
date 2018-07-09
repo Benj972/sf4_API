@@ -38,7 +38,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      "create",
  *      href = @Hateoas\Route(
  *          "app_user_create",
- *          parameters = { "id" = "expr(object.getId())" },
  *          absolute = true
  *      )
  * )

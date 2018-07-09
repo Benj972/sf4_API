@@ -29,7 +29,6 @@ use JMS\Serializer\Annotation\Groups;
  *      "list",
  *      href = @Hateoas\Route(
  *          "app_product_list",
- *          parameters = { "id" = "expr(object.getId())" },
  *          absolute = true
  *      )
  * )
